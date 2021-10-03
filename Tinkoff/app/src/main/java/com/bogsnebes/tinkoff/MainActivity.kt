@@ -1,11 +1,14 @@
 package com.bogsnebes.tinkoff
 
 import android.app.Activity
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var button: Button
@@ -22,7 +25,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         button = findViewById(R.id.button)
         button.setOnClickListener {
-            startForResult.launch(SecondActivity.createInstance(this))
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_CONTACTS
+                ) != PackageManager.PERMISSION_GRANTED
+            )
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.READ_CONTACTS),
+                    0
+                )
+            else
+                startForResult.launch(SecondActivity.createInstance(this))
         }
     }
 }
