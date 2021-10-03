@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var button: Button
+    private lateinit var textView: TextView
 
     private val startForResult = registerForActivityResult(StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
@@ -23,6 +24,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        textView = findViewById(R.id.textView)
+        textView
+        if (savedInstanceState != null) {
+            savedInstanceState.getString(KEY)?.let {
+                textView.text = it
+            }
+        } else {
+            textView.text = getString(R.string.hello_world)
+        }
         button = findViewById(R.id.button)
         button.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
@@ -38,5 +48,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             else
                 startForResult.launch(SecondActivity.createInstance(this))
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(
+            KEY,
+            textView.text.toString()
+        )
+    }
+
+    companion object {
+        private const val KEY = "KEY"
     }
 }
