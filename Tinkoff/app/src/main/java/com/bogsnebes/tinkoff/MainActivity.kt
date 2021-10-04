@@ -1,64 +1,69 @@
 package com.bogsnebes.tinkoff
 
 import android.app.Activity
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-    private lateinit var button: Button
     private lateinit var textView: TextView
 
     private val startForResult = registerForActivityResult(StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             val intent = it.data
             findViewById<TextView>(R.id.textView).text =
-                intent?.getStringExtra(SecondActivity.TEXT_FROM_SERVICE)
+                intent?.getStringExtra(MyService.EXTRA_TEXT_FROM_SERVICE)
         }
     }
+
+    private val singlePermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            when {
+                granted -> {
+                    startForResult.launch(SecondActivity.createInstance(this))
+                }
+                else -> {
+                    Toast.makeText(this, "Предоставьте доступ к контактам", Toast.LENGTH_SHORT)
+                        .show()
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.READ_CONTACTS),
+                        0
+                    )
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         textView = findViewById(R.id.textView)
-        textView
         if (savedInstanceState != null) {
-            savedInstanceState.getString(KEY)?.let {
+            savedInstanceState.getString(SIS_TEXTVIEW)?.let {
                 textView.text = it
             }
         } else {
-            textView.text = getString(R.string.hello_world)
+            textView.text = getString(R.string.first_activity)
         }
-        button = findViewById(R.id.button)
+        val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.READ_CONTACTS
-                ) != PackageManager.PERMISSION_GRANTED
-            )
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.READ_CONTACTS),
-                    0
-                )
-            else
-                startForResult.launch(SecondActivity.createInstance(this))
+            singlePermission.launch(android.Manifest.permission.READ_CONTACTS)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(
-            KEY,
+            SIS_TEXTVIEW,
             textView.text.toString()
         )
     }
 
     companion object {
-        private const val KEY = "KEY"
+        private const val SIS_TEXTVIEW = "SIS_TEXTVIEW"
     }
 }

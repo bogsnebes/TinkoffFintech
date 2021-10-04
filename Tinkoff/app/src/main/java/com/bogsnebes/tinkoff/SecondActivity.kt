@@ -14,7 +14,10 @@ class SecondActivity : AppCompatActivity(R.layout.activity_second) {
             intent?.let {
                 setResult(
                     RESULT_OK,
-                    Intent().putExtra(TEXT_FROM_SERVICE, intent.getStringExtra(TEXT_FROM_SERVICE))
+                    Intent().putExtra(
+                        MyService.EXTRA_TEXT_FROM_SERVICE,
+                        intent.getStringExtra(MyService.EXTRA_TEXT_FROM_SERVICE)
+                    )
                 )
                 onBackPressed()
             }
@@ -24,9 +27,7 @@ class SecondActivity : AppCompatActivity(R.layout.activity_second) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Intent(this, MyService::class.java).apply {
-            startService(this)
-        }
+        startService(MyService.createInstance(this))
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         localBroadcastManager.registerReceiver(broadcast, intentFilt)
     }
@@ -37,9 +38,7 @@ class SecondActivity : AppCompatActivity(R.layout.activity_second) {
     }
 
     companion object {
-        const val BROADCAST_ACTION = "com.bogsnebes.tinkoff"
-        const val TEXT_FROM_SERVICE = "TEXT_FROM_SERVICE"
-        private val intentFilt = IntentFilter(BROADCAST_ACTION)
+        private val intentFilt = IntentFilter(MyService.EXTRA_BROADCAST_ACTION)
 
         fun createInstance(context: Context): Intent {
             return Intent(context, SecondActivity::class.java)
