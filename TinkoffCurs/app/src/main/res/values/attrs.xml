@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EmojiReactionButton">
+        <attr name="erb_emoji" format="string" />
+        <attr name="erb_count_reactions" format="string" />
+        <attr name="erb_color" format="color"/>
+        <attr name="erb_text_size" format="dimension"/>
+    </declare-styleable>
+</resources>
