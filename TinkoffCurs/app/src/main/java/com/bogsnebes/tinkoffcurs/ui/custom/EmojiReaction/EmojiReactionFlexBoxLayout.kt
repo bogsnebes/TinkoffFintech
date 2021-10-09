@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.bogsnebes.tinkoffcurs.R
+import kotlin.math.ceil
 
 class EmojiReactionFlexBoxLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
@@ -42,16 +43,18 @@ class EmojiReactionFlexBoxLayout @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var totalWidth = 0
         var totalHeight = 0
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, totalWidth)
+            measureChild(child, widthMeasureSpec, heightMeasureSpec)
             totalHeight = maxOf(totalHeight, child.measuredHeight)
             totalWidth += child.measuredWidth + spaceBetweenHorizontal.toInt()
         }
         val maxChildHeight: Int = totalHeight
-        while (totalWidth > MeasureSpec.getSize(widthMeasureSpec)) {
+        var countStrings: Int = ceil(totalWidth.toFloat() / widthSize.toFloat()).toInt()
+        while (countStrings > 1) {
+            countStrings--
             totalHeight += maxChildHeight + spaceBetweenVertical.toInt()
-            totalWidth -= MeasureSpec.getSize(widthMeasureSpec) - spaceBetweenHorizontal.toInt() * 2
         }
         val resultWidth = resolveSize(totalWidth, widthMeasureSpec)
         val resultHeight = resolveSize(totalHeight, heightMeasureSpec)
@@ -59,21 +62,21 @@ class EmojiReactionFlexBoxLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        var currentRight = 0 - spaceBetweenHorizontal.toInt()
+        var currentRight = 0
         var currentTop = 0
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            if (spaceBetweenHorizontal + currentRight + child.measuredWidth > measuredWidth) {
+            if (currentRight + child.measuredWidth > measuredWidth) {
                 currentTop += child.measuredHeight + spaceBetweenVertical.toInt()
-                currentRight = 0 - spaceBetweenHorizontal.toInt()
+                currentRight = 0
             }
             child.layout(
-                spaceBetweenHorizontal.toInt() + currentRight,
+                currentRight,
                 currentTop,
                 currentRight + child.measuredWidth,
                 currentTop + child.measuredHeight
             )
-            currentRight = child.right
+            currentRight = child.right + spaceBetweenHorizontal.toInt()
         }
     }
 

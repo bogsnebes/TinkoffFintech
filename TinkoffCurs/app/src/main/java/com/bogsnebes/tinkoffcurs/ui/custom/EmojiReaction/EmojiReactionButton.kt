@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.bogsnebes.tinkoffcurs.R
 
-class EmojiReactionButton @JvmOverloads constructor(
+open class EmojiReactionButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) : View(context, attrs, defStyleAttr) {
     private var countReactions = ""
@@ -87,9 +87,9 @@ class EmojiReactionButton @JvmOverloads constructor(
     }
 
     override fun onCreateDrawableState(extraSpace: Int): IntArray {
-        val drawableState = super.onCreateDrawableState(extraSpace + SUPPORTED_DRAWABLE_STATE.size)
+        val drawableState = super.onCreateDrawableState(extraSpace + EXTRA_SUPPORTED_DRAWABLE_STATE.size)
         if (isSelected) {
-            mergeDrawableStates(drawableState, SUPPORTED_DRAWABLE_STATE)
+            mergeDrawableStates(drawableState, EXTRA_SUPPORTED_DRAWABLE_STATE)
         }
         return drawableState
     }
@@ -104,7 +104,7 @@ class EmojiReactionButton @JvmOverloads constructor(
     }
 
     companion object {
-        private val SUPPORTED_DRAWABLE_STATE = intArrayOf(android.R.attr.state_selected)
+        private val EXTRA_SUPPORTED_DRAWABLE_STATE = intArrayOf(android.R.attr.state_selected)
     }
 
 }
