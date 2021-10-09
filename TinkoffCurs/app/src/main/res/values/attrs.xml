@@ -6,4 +6,9 @@
         <attr name="erb_color" format="color"/>
         <attr name="erb_text_size" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="EmojiReactionFlexBoxLayout">
+        <attr name="erfb_space_between_horizontal" format="dimension" />
+        <attr name="erfb_space_between_vertical" format="dimension" />
+    </declare-styleable>
 </resources>
