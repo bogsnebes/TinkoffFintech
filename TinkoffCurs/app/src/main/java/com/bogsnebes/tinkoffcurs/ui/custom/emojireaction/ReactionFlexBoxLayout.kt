@@ -1,12 +1,13 @@
-package com.bogsnebes.tinkoffcurs.ui.custom.EmojiReaction
+package com.bogsnebes.tinkoffcurs.ui.custom.emojireaction
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
+import androidx.core.view.children
 import com.bogsnebes.tinkoffcurs.R
 import kotlin.math.ceil
 
-class EmojiReactionFlexBoxLayout @JvmOverloads constructor(
+class ReactionFlexBoxLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
     private var spaceBetweenHorizontal = 0f
@@ -23,21 +24,37 @@ class EmojiReactionFlexBoxLayout @JvmOverloads constructor(
     init {
         val typedArray = context.obtainStyledAttributes(
             attrs,
-            R.styleable.EmojiReactionFlexBoxLayout,
+            R.styleable.ReactionFlexBoxLayout,
             defStyleAttr,
             defStyleRes
         )
         spaceBetweenHorizontal =
             typedArray.getDimension(
-                R.styleable.EmojiReactionFlexBoxLayout_erfb_space_between_horizontal,
+                R.styleable.ReactionFlexBoxLayout_erfb_space_between_horizontal,
                 0F
             )
         spaceBetweenVertical =
             typedArray.getDimension(
-                R.styleable.EmojiReactionFlexBoxLayout_erfb_space_between_vertical,
+                R.styleable.ReactionFlexBoxLayout_erfb_space_between_vertical,
                 0F
             )
         typedArray.recycle()
+    }
+
+    fun setOnAddReactionClickListener(addReactionClickListener: () -> Unit) {
+        val addReactionButton =
+            this.children.firstOrNull { child -> child is ReactionAddViewButton }
+        addReactionButton?.setOnClickListener {
+            addReactionClickListener()
+        }
+    }
+
+    fun setOnReactionClickListener(reactionClickListener: () -> Unit) {
+        children.filter { it is ReactionButton }.forEach {
+            it.setOnClickListener {
+                reactionClickListener()
+            }
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

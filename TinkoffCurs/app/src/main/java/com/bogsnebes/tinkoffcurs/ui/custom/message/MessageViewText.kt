@@ -1,10 +1,11 @@
-package com.bogsnebes.tinkoffcurs.ui.custom.Message
+package com.bogsnebes.tinkoffcurs.ui.custom.message
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
+import android.widget.TextView
 
-class MessageText @JvmOverloads constructor(
+class MessageViewText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
@@ -60,6 +61,15 @@ class MessageText @JvmOverloads constructor(
             paddingLeft + textMessage.measuredWidth,
             titleMessage.measuredHeight + marginBottom + textMessage.measuredHeight
         )
+    }
+
+    fun setMessageContent(title: String, message: String) {
+        val titleMessage = getChildAt(0) as TextView
+        val textMessage = getChildAt(1) as TextView
+
+        titleMessage.text = title
+        textMessage.text = message
+        requestLayout()
     }
 
     override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {

@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.ui.custom.EmojiReaction
+package com.bogsnebes.tinkoffcurs.ui.custom.emojireaction
 
 import android.content.Context
 import android.graphics.*
@@ -6,10 +6,10 @@ import android.util.AttributeSet
 import android.view.View
 import com.bogsnebes.tinkoffcurs.R
 
-class EmojiReactionAddViewButton @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
+internal class ReactionAddViewButton @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    private var text = "+"
+    private var text = resources.getString(R.string.add_view_button)
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textSize = resources.getDimension(R.dimen.simple_text)

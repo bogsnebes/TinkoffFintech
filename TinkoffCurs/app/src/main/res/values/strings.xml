@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TinkoffCurs</string>
+    <string name="add_view_button">+</string>
 </resources>

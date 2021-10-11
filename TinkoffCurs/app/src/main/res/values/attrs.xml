@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="EmojiReactionButton">
+    <declare-styleable name="ReactionButton">
         <attr name="erb_emoji" format="string" />
         <attr name="erb_count_reactions" format="string" />
-        <attr name="erb_color" format="color"/>
         <attr name="erb_text_size" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="EmojiReactionFlexBoxLayout">
+    <declare-styleable name="ReactionFlexBoxLayout">
         <attr name="erfb_space_between_horizontal" format="dimension" />
         <attr name="erfb_space_between_vertical" format="dimension" />
     </declare-styleable>
