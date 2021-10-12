@@ -3,6 +3,7 @@ package com.bogsnebes.tinkoffcurs.ui.custom.message
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
+import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionFlexBoxLayout
 
 class MessageView @JvmOverloads constructor(
@@ -11,6 +12,10 @@ class MessageView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
+    init {
+        inflate(context, R.layout.item_message_view, this)
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val imageView = getChildAt(0)
         val messageTextView = getChildAt(1)

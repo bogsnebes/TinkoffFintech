@@ -9,7 +9,8 @@ import com.bogsnebes.tinkoffcurs.ui.custom.message.MessageView
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val messageView = findViewById<MessageView>(R.id.mV)
+        val messageView = findViewById<MessageView>(R.id.messageView)
+        messageView.setOnReactionClickListener {}
         messageView.setOnAddReactionClickListener {
             val emoji = ReactionButton(this).apply {
                 this.emoji = "\uD83D\uDE0E"
@@ -17,6 +18,5 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
             findViewById<ReactionFlexBoxLayout>(R.id.rfbl).addView(emoji)
         }
-        messageView.setOnReactionClickListener {}
     }
 }
