@@ -36,12 +36,12 @@
             android:text="123124132442134233123124412421521324421342331231244124215213244213423312312441242152132442134233123124412421521324233123124412421521324521421412312521421321251421421412142142142121331231231223513hjawdkfawbkdfjbawkldblawjfdnlawkjfawifbajsfnflkawfnalw,fnkklawfjblawfhbjakawhflawfawf" />
     </com.bogsnebes.tinkoffcurs.ui.custom.message.MessageViewText>
 
-    <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionFlexBoxLayout
+    <com.bogsnebes.tinkoffcurs.ui.custom.FlexBoxLayout
         android:id="@+id/rfbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -50,7 +50,7 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -59,7 +59,7 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -68,7 +68,7 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -77,7 +77,7 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -86,7 +86,7 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -95,7 +95,7 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -104,7 +104,7 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
@@ -113,11 +113,11 @@
             app:erb_count_reactions="2"
             app:erb_emoji="😎" />
 
-        <com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionAddViewButton
+        <com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionAddViewButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_emoji_reaction_button"
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp" />
-    </com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionFlexBoxLayout>
+    </com.bogsnebes.tinkoffcurs.ui.custom.FlexBoxLayout>
 </merge>

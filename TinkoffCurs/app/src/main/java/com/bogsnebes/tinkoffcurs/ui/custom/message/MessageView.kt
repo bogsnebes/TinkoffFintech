@@ -1,10 +1,17 @@
 package com.bogsnebes.tinkoffcurs.ui.custom.message
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.children
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.ui.custom.emojireaction.ReactionFlexBoxLayout
+import com.bogsnebes.tinkoffcurs.ui.custom.FlexBoxLayout
+import com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionAddViewButton
+import com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
 
 class MessageView @JvmOverloads constructor(
     context: Context,
@@ -12,15 +19,18 @@ class MessageView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
+    private val imageView: ImageView
+    private val messageTextView: MessageViewText
+    private val flexBoxLayout: FlexBoxLayout
+
     init {
         inflate(context, R.layout.item_message_view, this)
+        imageView = findViewById(R.id.avatarIv)
+        messageTextView = findViewById(R.id.messageMvt)
+        flexBoxLayout = findViewById(R.id.rfbl)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val imageView = getChildAt(0)
-        val messageTextView = getChildAt(1)
-        val reactionFlexBoxLayout = getChildAt(2)
-
         var totalWidth = 0
         var totalHeight = 0
 
@@ -30,18 +40,18 @@ class MessageView @JvmOverloads constructor(
         val marginBottom = (messageTextView.layoutParams as MarginLayoutParams).bottomMargin
 
         measureChild(
-            reactionFlexBoxLayout,
+            flexBoxLayout,
             widthMeasureSpec - imageView.measuredWidth - marginRight - paddingLeft,
             heightMeasureSpec - messageTextView.measuredHeight - marginBottom,
         )
         totalWidth =
-            reactionFlexBoxLayout.measuredWidth
-        totalHeight += reactionFlexBoxLayout.measuredHeight
+            flexBoxLayout.measuredWidth
+        totalHeight += flexBoxLayout.measuredHeight
 
         measureChild(
             messageTextView,
             widthMeasureSpec - imageView.measuredWidth - marginRight - paddingLeft,
-            heightMeasureSpec - reactionFlexBoxLayout.measuredHeight,
+            heightMeasureSpec - flexBoxLayout.measuredHeight,
         )
         totalWidth += maxOf(
             totalWidth,
@@ -59,10 +69,6 @@ class MessageView @JvmOverloads constructor(
 
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val imageView = getChildAt(0)
-        val messageTextView = getChildAt(1)
-        val reactionFlexBoxLayout = getChildAt(2)
-
         imageView.layout(
             paddingLeft,
             paddingTop,
@@ -80,29 +86,47 @@ class MessageView @JvmOverloads constructor(
             paddingTop + messageTextView.measuredHeight
         )
 
-        reactionFlexBoxLayout.layout(
+        flexBoxLayout.layout(
             paddingLeft + imageView.measuredWidth + marginRight,
             paddingTop + messageTextView.measuredHeight + marginBottom,
-            paddingLeft + imageView.measuredWidth + marginRight + reactionFlexBoxLayout.measuredWidth,
-            paddingTop + messageTextView.measuredHeight + reactionFlexBoxLayout.measuredHeight + marginBottom
+            paddingLeft + imageView.measuredWidth + marginRight + flexBoxLayout.measuredWidth,
+            paddingTop + messageTextView.measuredHeight + flexBoxLayout.measuredHeight + marginBottom
         )
     }
 
-    fun setOnAddReactionClickListener(addReactionClickListener: () -> Unit) {
-        val emojiReactionFlexBoxLayout = getChildAt(2) as ReactionFlexBoxLayout
-        emojiReactionFlexBoxLayout.setOnAddReactionClickListener {
-            addReactionClickListener()
+    fun setOnAddReactionClickListener(addReactionClickListener: () -> ReactionButton) {
+        val addReactionButton =
+            flexBoxLayout.children.firstOrNull { child -> child is ReactionAddViewButton }
+        addReactionButton?.setOnClickListener {
+            flexBoxLayout.removeView(addReactionButton)
+            flexBoxLayout.addView(addReactionClickListener())
+            flexBoxLayout.addView(addReactionButton)
+            requestLayout()
         }
     }
 
-    fun setOnReactionClickListener(reactionClickListener: () -> Unit) {
-        val emojiReactionFlexBoxLayout = getChildAt(2) as ReactionFlexBoxLayout
-        emojiReactionFlexBoxLayout.setOnReactionClickListener { reactionClickListener() }
+    fun setOnReactionClickListener(reactionClickListener: (view: View) -> Unit) {
+        flexBoxLayout.children.filter { it is ReactionButton }.forEach { it ->
+            it.setOnClickListener {
+                it as ReactionButton
+                it.isSelected = !it.isSelected
+                if (!it.isSelected) {
+                    it.setTextColor(Color.WHITE)
+                } else {
+                    it.setTextColor(Color.GRAY)
+                }
+                reactionClickListener(it)
+            }
+        }
     }
 
     fun setMessageContent(title: String, message: String) {
-        val messageTextView = getChildAt(1) as MessageViewText
         messageTextView.setMessageContent(title, message)
+        requestLayout()
+    }
+
+    fun setAvatar(drawable: Drawable) {
+        imageView.setImageDrawable(drawable)
         requestLayout()
     }
 

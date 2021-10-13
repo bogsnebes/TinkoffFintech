@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.ui.custom.emojireaction
+package com.bogsnebes.tinkoffcurs.ui.custom.reaction
 
 import android.content.Context
 import android.graphics.*

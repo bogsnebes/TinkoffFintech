@@ -11,7 +11,6 @@ class MessageViewText @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val titleMessage = getChildAt(0)
         val textMessage = getChildAt(1)

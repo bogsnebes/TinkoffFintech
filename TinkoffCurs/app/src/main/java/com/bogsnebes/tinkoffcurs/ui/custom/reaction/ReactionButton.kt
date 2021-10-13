@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.ui.custom.emojireaction
+package com.bogsnebes.tinkoffcurs.ui.custom.reaction
 
 import android.content.Context
 import android.graphics.*
@@ -9,7 +9,7 @@ import com.bogsnebes.tinkoffcurs.R
 class ReactionButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    var countReactions = ""
+    var countReactions = 0
         set(value) {
             field = value
             requestLayout()
@@ -38,7 +38,7 @@ class ReactionButton @JvmOverloads constructor(
             defStyleRes
         )
         countReactions =
-            typedArray.getString(R.styleable.ReactionButton_erb_count_reactions).orEmpty()
+            typedArray.getInteger(R.styleable.ReactionButton_erb_count_reactions, 1)
         emoji =
             typedArray.getString(R.styleable.ReactionButton_erb_emoji).orEmpty()
 
