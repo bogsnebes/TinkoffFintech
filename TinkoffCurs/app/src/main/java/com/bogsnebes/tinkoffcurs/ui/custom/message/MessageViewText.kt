@@ -2,6 +2,7 @@ package com.bogsnebes.tinkoffcurs.ui.custom.message
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
@@ -12,24 +13,26 @@ class MessageViewText @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val titleMessage = getChildAt(0)
-        val textMessage = getChildAt(1)
+        val textMessage = getChildAt(0)
+        val titleMessage: View? = getChildAt(1)
 
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         var totalWidth = 0
         var totalHeight = 0
+        var marginBottom = 0
 
-        measureChildWithMargins(titleMessage, widthMeasureSpec, 0, heightMeasureSpec, 0)
-
-        val marginBottom = (titleMessage.layoutParams as MarginLayoutParams).bottomMargin
-        totalHeight = maxOf(totalHeight, titleMessage.measuredHeight)
+        titleMessage?.let {
+            measureChildWithMargins(it, widthMeasureSpec, 0, heightMeasureSpec, 0)
+            marginBottom = (it.layoutParams as MarginLayoutParams).bottomMargin
+            totalHeight = maxOf(totalHeight, it.measuredHeight)
+        }
 
         measureChild(
             textMessage,
             widthMeasureSpec,
-            heightMeasureSpec - titleMessage.measuredHeight - marginBottom
+            heightMeasureSpec - (titleMessage?.measuredHeight ?: 0) - marginBottom
         )
-        totalWidth = maxOf(textMessage.measuredWidth, titleMessage.measuredWidth)
+        totalWidth = maxOf(textMessage.measuredWidth, titleMessage?.measuredWidth ?: 0)
         totalHeight += textMessage.measuredHeight + marginBottom
 
         if (totalWidth > widthSize) {
@@ -42,36 +45,40 @@ class MessageViewText @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val titleMessage = getChildAt(0)
-        val textMessage = getChildAt(1)
+        val textMessage = getChildAt(0)
+        val titleMessage: View? = getChildAt(1)
+        var marginBottom = 0
 
-        titleMessage.layout(
-            paddingLeft,
-            paddingTop,
-            paddingLeft + titleMessage.measuredWidth,
-            paddingTop + titleMessage.measuredHeight
-        )
-
-        val marginBottom = (titleMessage.layoutParams as MarginLayoutParams).bottomMargin
+        titleMessage?.let {
+            it.layout(
+                paddingLeft,
+                paddingTop,
+                paddingLeft + titleMessage.measuredWidth,
+                paddingTop + titleMessage.measuredHeight
+            )
+            marginBottom = (titleMessage.layoutParams as MarginLayoutParams).bottomMargin
+        }
 
         textMessage.layout(
             paddingLeft,
-            titleMessage.measuredHeight + marginBottom,
+            (titleMessage?.measuredHeight ?: paddingTop) + marginBottom,
             paddingLeft + textMessage.measuredWidth,
-            titleMessage.measuredHeight + marginBottom + textMessage.measuredHeight
+            (titleMessage?.measuredHeight ?: paddingTop) + marginBottom + textMessage.measuredHeight
         )
     }
 
     fun setMessageContent(message: String) {
-        val textMessage = getChildAt(1) as TextView
+        val textMessage = getChildAt(0) as TextView
         textMessage.text = message
         requestLayout()
     }
 
     fun setTitleContent(title: String) {
-        val titleMessage = getChildAt(0) as TextView
-        titleMessage.text = title
-        requestLayout()
+        val titleMessage: TextView? = getChildAt(1) as TextView
+        titleMessage?.apply {
+            this.text = title
+            requestLayout()
+        }
     }
 
     override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
