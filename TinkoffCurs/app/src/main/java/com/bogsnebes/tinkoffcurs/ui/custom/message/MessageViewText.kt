@@ -62,12 +62,15 @@ class MessageViewText @JvmOverloads constructor(
         )
     }
 
-    fun setMessageContent(title: String, message: String) {
-        val titleMessage = getChildAt(0) as TextView
+    fun setMessageContent(message: String) {
         val textMessage = getChildAt(1) as TextView
-
-        titleMessage.text = title
         textMessage.text = message
+        requestLayout()
+    }
+
+    fun setTitleContent(title: String) {
+        val titleMessage = getChildAt(0) as TextView
+        titleMessage.text = title
         requestLayout()
     }
 

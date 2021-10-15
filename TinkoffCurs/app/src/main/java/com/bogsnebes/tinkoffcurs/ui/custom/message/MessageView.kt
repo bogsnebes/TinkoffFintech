@@ -2,12 +2,13 @@ package com.bogsnebes.tinkoffcurs.ui.custom.message
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.children
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.ui.custom.FlexBoxLayout
 import com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionAddViewButton
@@ -120,14 +121,43 @@ class MessageView @JvmOverloads constructor(
         }
     }
 
-    fun setMessageContent(title: String, message: String) {
-        messageTextView.setMessageContent(title, message)
+    fun setMessageContent(message: String) {
+        messageTextView.setMessageContent(message)
         requestLayout()
     }
 
-    fun setAvatar(drawable: Drawable) {
-        imageView.setImageDrawable(drawable)
+    fun setTitleContent(title: String) {
+        messageTextView.setTitleContent(title)
         requestLayout()
+    }
+
+    fun setAvatar(drawable: Int) {
+        imageView.load(drawable) {
+            transformations(
+                RoundedCornersTransformation(CORNERS_RADIUS)
+            )
+        }
+        requestLayout()
+    }
+
+    fun setAvatar(uri: String) {
+        imageView.load(uri) {
+            transformations(
+                RoundedCornersTransformation(CORNERS_RADIUS)
+            )
+        }
+        requestLayout()
+    }
+
+    fun addReactions(reactions: List<ReactionButton>) {
+        flexBoxLayout.addChildren(reactions)
+        flexBoxLayout.addView(ReactionAddViewButton(context))
+        requestLayout()
+    }
+
+    fun setMessageColorBackground(background: Int) {
+        messageTextView.setBackgroundColor(background)
+        invalidate()
     }
 
     override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
@@ -140,5 +170,9 @@ class MessageView @JvmOverloads constructor(
 
     override fun generateLayoutParams(p: LayoutParams): LayoutParams {
         return MarginLayoutParams(p)
+    }
+
+    companion object {
+        private const val CORNERS_RADIUS = 46f
     }
 }

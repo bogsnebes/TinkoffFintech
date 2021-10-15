@@ -2,8 +2,10 @@ package com.bogsnebes.tinkoffcurs.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.view.ViewGroup
 import com.bogsnebes.tinkoffcurs.R
+import com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionAddViewButton
 import kotlin.math.ceil
 
 class FlexBoxLayout @JvmOverloads constructor(
@@ -78,6 +80,13 @@ class FlexBoxLayout @JvmOverloads constructor(
             )
             currentRight = child.right + spaceBetweenHorizontal.toInt()
         }
+    }
+
+    fun addChildren(children: List<View>) {
+        for (child in children) {
+            this.addView(child)
+        }
+        requestLayout()
     }
 
     override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {

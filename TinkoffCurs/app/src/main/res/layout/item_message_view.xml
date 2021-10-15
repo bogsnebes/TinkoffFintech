@@ -6,8 +6,7 @@
         android:id="@+id/avatarIv"
         android:layout_width="37dp"
         android:layout_height="37dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_launcher_background" />
+        android:layout_marginEnd="8dp" />
 
     <com.bogsnebes.tinkoffcurs.ui.custom.message.MessageViewText
         android:id="@+id/messageMvt"
@@ -26,14 +25,14 @@
             android:layout_marginBottom="4dp"
             android:textColor="@color/blue"
             android:textSize="@dimen/simple_text"
-            android:text="Hello world!" />
+            tools:text="Hello world!" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_white"
             android:textSize="16sp"
-            android:text="123124132442134233123124412421521324421342331231244124215213244213423312312441242152132442134233123124412421521324233123124412421521324521421412312521421321251421421412142142142121331231231223513hjawdkfawbkdfjbawkldblawjfdnlawkjfawifbajsfnflkawfnalw,fnkklawfjblawfhbjakawhflawfawf" />
+            tools:text="123124132442134233123124412421521324421342331231244124215213244213423312312441242152132442134233123124412421521324233123124412421521324521421412312521421321251421421412142142142121331231231223513hjawdkfawbkdfjbawkldblawjfdnlawkjfawifbajsfnflkawfnalw,fnkklawfjblawfhbjakawhflawfawf" />
     </com.bogsnebes.tinkoffcurs.ui.custom.message.MessageViewText>
 
     <com.bogsnebes.tinkoffcurs.ui.custom.FlexBoxLayout
