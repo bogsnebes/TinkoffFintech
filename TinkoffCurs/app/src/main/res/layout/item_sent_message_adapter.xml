@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bogsnebes.tinkoffcurs.ui.custom.message.SentMessageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/messageView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="24dp"
-    android:layout_marginEnd="12dp"/>
+    android:orientation="vertical">
+
+    <com.bogsnebes.tinkoffcurs.ui.custom.message.SentMessageView
+        android:id="@+id/messageView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="24dp" />
+</LinearLayout>

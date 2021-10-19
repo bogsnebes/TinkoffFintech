@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
@@ -24,18 +25,19 @@
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent">
 
-      <ImageView
-          android:id="@+id/imageView"
-          android:layout_width="39dp"
-          android:layout_height="39dp"
+      <ImageButton
+          android:id="@+id/imageButton"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
           android:layout_gravity="end"
           android:layout_marginVertical="12dp"
           android:layout_marginEnd="16dp"
-          android:src="@drawable/ic_button_send_message"
+          android:background="?android:attr/panelBackground"
+          android:contentDescription="@string/button_send_message"
+          app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          android:contentDescription="@string/button_send_message" />
+          tools:src="@drawable/ic_button_cross" />
 
       <EditText
           android:id="@+id/editText"
@@ -45,14 +47,14 @@
           android:layout_marginTop="8dp"
           android:layout_marginEnd="12dp"
           android:layout_marginBottom="8dp"
-          android:autofillHints="Text"
+          android:autofillHints="Написать..."
           android:background="@drawable/bg_edit_text"
           android:inputType="textPostalAddress"
           android:textColor="@color/silver"
           android:textSize="20sp"
           android:paddingHorizontal="4dp"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toStartOf="@+id/imageView"
+          app:layout_constraintEnd_toStartOf="@+id/imageButton"
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"

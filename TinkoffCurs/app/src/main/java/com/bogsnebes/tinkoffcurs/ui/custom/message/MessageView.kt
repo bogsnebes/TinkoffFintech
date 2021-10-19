@@ -21,14 +21,11 @@ abstract class MessageView @JvmOverloads constructor(
     abstract val flexBoxLayout: FlexBoxLayout
     abstract val messageTextView: MessageViewText
 
-    fun setOnAddReactionClickListener(addReactionClickListener: () -> ReactionButton) {
+    fun setOnAddReactionClickListener(addReactionClickListener: (addReactionButton: ReactionAddViewButton) -> Unit) {
         val addReactionButton =
             flexBoxLayout.children.firstOrNull { child -> child is ReactionAddViewButton }
         addReactionButton?.setOnClickListener {
-            flexBoxLayout.removeView(addReactionButton)
-            flexBoxLayout.addView(addReactionClickListener())
-            flexBoxLayout.addView(addReactionButton)
-            requestLayout()
+            addReactionClickListener(it as ReactionAddViewButton)
         }
     }
 
@@ -39,8 +36,13 @@ abstract class MessageView @JvmOverloads constructor(
                 it.isSelected = !it.isSelected
                 if (!it.isSelected) {
                     it.setTextColor(Color.WHITE)
+                    it.countReactions++
                 } else {
                     it.setTextColor(Color.GRAY)
+                    it.countReactions--
+                }
+                if (it.countReactions <= 0) {
+                    flexBoxLayout.removeView(it)
                 }
                 reactionClickListener(it)
             }
@@ -67,8 +69,41 @@ abstract class MessageView @JvmOverloads constructor(
         requestLayout()
     }
 
-    fun setMessageColorBackground(background: Int) {
-        messageTextView.setBackgroundResource(background)
-        invalidate()
+    fun addReaction(
+        emojiText: String,
+        count: Int
+    ) {
+        val addReactionButton =
+            flexBoxLayout.children.firstOrNull { child -> child is ReactionAddViewButton }
+        flexBoxLayout.removeView(addReactionButton)
+        flexBoxLayout.addView(ReactionButton(context).apply {
+            emoji = emojiText
+            countReactions = count
+            isSelected = false
+            val padding10inDp = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics
+            ).toInt()
+            val padding5inDp = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics
+            ).toInt()
+            this.setPadding(padding10inDp, padding5inDp, padding10inDp, padding5inDp)
+            this.setTextColor(Color.WHITE)
+            this.setBackgroundResource(R.drawable.bg_emoji_reaction_button)
+        })
+        if (addReactionButton != null)
+            flexBoxLayout.addView(addReactionButton)
+        else {
+            flexBoxLayout.addView(ReactionAddViewButton(context).apply {
+                val padding10inDp = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics
+                ).toInt()
+                val padding5inDp = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics
+                ).toInt()
+                this.setPadding(padding10inDp, padding5inDp, padding10inDp, padding5inDp)
+                this.setBackgroundResource(R.drawable.bg_emoji_reaction_button)
+            })
+        }
+        requestLayout()
     }
 }

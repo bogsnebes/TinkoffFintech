@@ -1,7 +1,10 @@
 package com.bogsnebes.tinkoffcurs.ui.custom.reaction
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PointF
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import com.bogsnebes.tinkoffcurs.R
@@ -47,16 +50,6 @@ class ReactionButton @JvmOverloads constructor(
             resources.getDimension(R.dimen.simple_text)
         )
         typedArray.recycle()
-    }
-
-    override fun setOnClickListener(l: OnClickListener?) {
-        super.setOnClickListener(l)
-        isSelected = !isSelected
-        if (!isSelected) {
-            setTextColor(Color.WHITE)
-        } else {
-            setTextColor(Color.GRAY)
-        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
