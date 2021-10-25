@@ -15,8 +15,8 @@ import com.bogsnebes.tinkoffcurs.data.dto.MessageDto
 import com.bogsnebes.tinkoffcurs.data.dto.ReactionDto
 
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
-    private lateinit var recyclerMessage: RecyclerView
+class MainActivity : AppCompatActivity(R.layout.main_activity) {
+/*    private lateinit var recyclerMessage: RecyclerView
 
     // Testing data
     private val testListRecycler = mutableListOf(
@@ -80,5 +80,5 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun isEmpty(editText: EditText): Boolean {
         return editText.text.toString().trim { it <= ' ' }.isEmpty()
-    }
+    }*/
 }
