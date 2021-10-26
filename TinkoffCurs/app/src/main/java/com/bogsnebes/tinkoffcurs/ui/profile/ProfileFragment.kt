@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -48,10 +49,17 @@ class ProfileFragment : Fragment() {
                     online.setTextColor(view.context.getColor(R.color.green))
                 }
             } else {
-                online.text = view.context.getString(R.string.online)
+                online.text = view.context.getString(R.string.offline)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     online.setTextColor(view.context.getColor(R.color.red))
                 }
+            }
+            if (profileDto.userId != 0) {
+                view.findViewById<TextView>(R.id.logoutTv).visibility = View.GONE
+            } else {
+                view.findViewById<View>(R.id.viewProfile).visibility = View.GONE
+                view.findViewById<TextView>(R.id.profileTv).visibility = View.GONE
+                view.findViewById<ImageButton>(R.id.backProfileIb).visibility = View.GONE
             }
         }
     }

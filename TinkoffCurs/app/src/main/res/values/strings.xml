@@ -12,4 +12,6 @@
     <string name="back">back</string>
     <string name="online">online</string>
     <string name="offline">offline</string>
+    <string name="log_out">Log out</string>
+    <string name="mes">mes</string>
 </resources>

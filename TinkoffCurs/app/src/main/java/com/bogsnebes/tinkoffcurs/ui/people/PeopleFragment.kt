@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
+import com.bogsnebes.tinkoffcurs.data.dto.TestData
 
 class PeopleFragment : Fragment() {
     private lateinit var viewModel: PeopleViewModel
@@ -26,7 +27,7 @@ class PeopleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PeopleViewModel::class.java)
         recyclerPeople = view.findViewById(R.id.peopleRv)
-        val peopleAdapter = PeopleAdapter(view.context, TestData.testList) {
+        val peopleAdapter = PeopleAdapter(view.context, TestData.testPeopleList) {
             parentFragmentManager.setFragmentResult(
                 PROFILE_OPEN_KEY,
                 bundleOf(PROFILE_OPEN_KEY to it)
