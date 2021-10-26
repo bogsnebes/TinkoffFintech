@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.ui.chat
+package com.bogsnebes.tinkoffcurs.ui
 
 import android.os.Bundle
 import android.text.Editable

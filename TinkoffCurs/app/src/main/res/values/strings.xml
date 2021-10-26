@@ -8,4 +8,6 @@
     <string name="profile">Profile</string>
     <string name="search">Search…</string>
     <string name="users">Users…</string>
+    <string name="profile">Profile</string>
+    <string name="avatar">Avatar</string>
 </resources>
