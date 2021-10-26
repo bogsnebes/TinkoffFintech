@@ -47,8 +47,34 @@ object TestData {
                 ChatDto(
                     "Testing",
                     1240
+                ),
+                ChatDto(
+                    "Testing",
+                    1240
+                ),
+                ChatDto(
+                    "Testing",
+                    1240
                 )
             )
-        )
+        ),
+        StreamDto(
+            "#directory",
+            listOf(
+                ChatDto(
+                    "Testing",
+                    1240
+                )
+            )
+        ),
+        StreamDto(
+            "#hr",
+            listOf(
+                ChatDto(
+                    "Testing",
+                    1240
+                )
+            )
+        ),
     )
 }
