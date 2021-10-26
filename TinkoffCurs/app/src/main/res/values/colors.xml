@@ -16,4 +16,5 @@
     <color name="transport_black">#1E1E1E</color>
     <color name="gray">#999999</color>
     <color name="light_silver">#919191</color>
+    <color name="light_gray">#A1A1A1</color>
 </resources>

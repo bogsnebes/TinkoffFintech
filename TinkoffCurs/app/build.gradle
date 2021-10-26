@@ -37,6 +37,8 @@ ext {
     material = "1.4.0"
     constraintlayout = "2.1.1"
     coil = "1.4.0"
+    lifecycle = "2.3.1"
+    legacy = "1.0.0"
 }
 
 dependencies {
@@ -44,10 +46,12 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "com.google.android.material:material:$material"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
+    implementation "androidx.legacy:legacy-support-v4:$legacy"
 
-    // Coil
+    // coil
     implementation "io.coil-kt:coil:$coil"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+
+    // lifecycle
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
 }
