@@ -8,7 +8,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="83dp"
+        android:layout_height="@dimen/appbar_view_height"
         android:layout_weight="1"
         android:background="@color/transport_black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,15 +38,17 @@
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/horizontal_dimen"
         android:background="@color/material_on_background_disabled"
+        android:backgroundTint="#FFFFFF"
+        android:contentDescription="@string/search"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName"
         app:srcCompat="@drawable/ic_search"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:contentDescription="@string/search" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/peopleRv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/black"

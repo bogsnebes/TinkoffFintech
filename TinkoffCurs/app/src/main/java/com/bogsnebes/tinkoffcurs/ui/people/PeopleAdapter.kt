@@ -32,13 +32,17 @@ class PeopleAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.avatar.load(R.drawable.ic_people)
         profileList[position].avatar?.let {
             holder.avatar.load(profileList[position].avatar) {
                 transformations(
                     RoundedCornersTransformation(CORNERS_RADIUS)
                 )
             }
+        }
+        if (profileList[position].online) {
+            holder.online.load(R.drawable.ic_online)
+        } else {
+            holder.online.load(R.drawable.ic_offline)
         }
         holder.name.text = profileList[position].name
         holder.email.text = profileList[position].email
@@ -51,6 +55,7 @@ class PeopleAdapter(
         val avatar: ImageView = view.findViewById(R.id.avatarPeopleIv)
         val name: TextView = view.findViewById(R.id.namePeopleTv)
         val email: TextView = view.findViewById(R.id.emailPeopleTv)
+        val online: ImageView = view.findViewById(R.id.onlinePeopleIv)
     }
 
     companion object {
