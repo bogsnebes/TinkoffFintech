@@ -3,5 +3,4 @@
     android:id="@+id/messageView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="end">
-</com.bogsnebes.tinkoffcurs.ui.custom.message.MessageView>
+    android:layout_gravity="end"></com.bogsnebes.tinkoffcurs.ui.custom.message.MessageView>

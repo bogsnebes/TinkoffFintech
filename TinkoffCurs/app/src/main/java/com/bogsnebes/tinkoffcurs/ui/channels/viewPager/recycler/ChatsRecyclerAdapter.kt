@@ -10,12 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
-import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
 
 class ChatsRecyclerAdapter(
     private val context: Context,
     private val chatList: List<ChatDto>,
-    private val callback: (profile: ProfileDto) -> Unit
+    private val callback: (chat: ChatDto, holder: ViewHolder) -> Unit
 ) : RecyclerView.Adapter<ChatsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,7 +22,7 @@ class ChatsRecyclerAdapter(
     ): ViewHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_streams_adapter, parent, false)
+                .inflate(R.layout.item_notify_chats_adapter, parent, false)
         return ViewHolder(view)
     }
 
@@ -39,17 +38,19 @@ class ChatsRecyclerAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 holder.layout.setBackgroundColor(context.getColor(R.color.blue))
             }
-        }
-        else {
+        } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 holder.layout.setBackgroundColor(context.getColor(R.color.yellow))
             }
+        }
+        holder.itemView.setOnClickListener {
+            callback(chatList[position], holder)
         }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val layout: LinearLayout = view.findViewById(R.id.chatLayout)
-        val name: TextView = view.findViewById(R.id.nameStreamTv)
+        val name: TextView = view.findViewById(R.id.nameStreamChatTv)
         val messages: TextView = view.findViewById(R.id.messageStreamChatTv)
     }
 }
