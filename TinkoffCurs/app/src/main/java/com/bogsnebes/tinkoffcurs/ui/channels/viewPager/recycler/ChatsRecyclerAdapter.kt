@@ -37,12 +37,12 @@ class ChatsRecyclerAdapter(
             chatList[position].countMessages.toString() + context.getString(R.string.mes)
         if (position % 2 == 0) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                holder.layout.setBackgroundColor(context.getColor(R.color.yellow))
+                holder.layout.setBackgroundColor(context.getColor(R.color.blue))
             }
         }
         else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                holder.layout.setBackgroundColor(context.getColor(R.color.blue))
+                holder.layout.setBackgroundColor(context.getColor(R.color.yellow))
             }
         }
     }

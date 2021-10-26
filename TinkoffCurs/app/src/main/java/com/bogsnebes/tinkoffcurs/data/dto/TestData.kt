@@ -31,11 +31,24 @@ object TestData {
             false
         )
     )
+
     val testProfile: ProfileDto = ProfileDto(
         0,
         "https://memepedia.ru/wp-content/uploads/2018/08/papich-768x432.jpg",
         "Пользователь 0",
         "example@gmail.com",
         true
+    )
+
+    val testStreams = mutableListOf<StreamDto>(
+        StreamDto(
+            "#general",
+            listOf(
+                ChatDto(
+                    "Testing",
+                    1240
+                )
+            )
+        )
     )
 }
