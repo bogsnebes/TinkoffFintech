@@ -9,12 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
+import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
 import com.bogsnebes.tinkoffcurs.data.dto.StreamDto
 
 class StreamsRecyclerAdapter(
     private val context: Context,
     private val streamsList: List<StreamDto>,
-    private val callback: (stream: StreamDto, holder: ViewHolder) -> Unit
+    private val callbackStream: (stream: StreamDto, holder: ViewHolder) -> Unit,
+    private val callbackChat: (chat: ChatDto) -> Unit
 ) : RecyclerView.Adapter<StreamsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,12 +36,12 @@ class StreamsRecyclerAdapter(
         holder.name.text = streamsList[position].category
         holder.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = ChatsRecyclerAdapter(context, streamsList[position].chats) { _, _ ->
-                Unit
+            adapter = ChatsRecyclerAdapter(context, streamsList[position].chats) {
+                callbackChat(it)
             }
         }
         holder.itemView.setOnClickListener {
-            callback(streamsList[position], holder)
+            callbackStream(streamsList[position], holder)
         }
     }
 

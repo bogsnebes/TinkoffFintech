@@ -2,11 +2,15 @@ package com.bogsnebes.tinkoffcurs.ui
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bogsnebes.tinkoffcurs.R
+import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
 import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
 import com.bogsnebes.tinkoffcurs.data.dto.TestData
 import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsFragment
+import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.StreamsFragment
+import com.bogsnebes.tinkoffcurs.ui.chat.ChatFragment
 import com.bogsnebes.tinkoffcurs.ui.people.PeopleFragment
 import com.bogsnebes.tinkoffcurs.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,6 +37,18 @@ class MainActivity : AppCompatActivity(R.layout.main_activity),
         }
         val bottomNavigationMenu: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationMenu.setOnNavigationItemSelectedListener(this)
+
+        supportFragmentManager.setFragmentResultListener(
+            StreamsFragment.CHAT_OPEN_KEY, this
+        ) { _, bundle ->
+            (bundle.getSerializable(StreamsFragment.CHAT_OPEN_KEY) as? ChatDto)?.let {
+                bottomNavigationMenu.visibility = View.GONE
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, ChatFragment.newInstance(it))
+                    .hide(ChannelsFragment())
+                    .commit()
+            }
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

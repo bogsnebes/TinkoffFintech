@@ -40,21 +40,38 @@ object TestData {
         true
     )
 
-    val testStreams = mutableListOf<StreamDto>(
+    val testStreams = mutableListOf(
         StreamDto(
             "#general",
             listOf(
                 ChatDto(
                     "Testing",
-                    1240
+                    1240,
+                    mutableListOf(
+                        MessageDto(
+                            0, 123, "Писатель 1", "kappa", null, listOf(
+                                ReactionDto(123, "\uD83D\uDE00", 1),
+                                ReactionDto(123, "\uD83D\uDE00", 123451)
+                            ), "03.01.2020"
+                        ),
+                        MessageDto(
+                            1, 432,
+                            "Писатель 2",
+                            "чупапа муняня",
+                            null,
+                            listOf(), "03.01.2020"
+                        )
+                    )
                 ),
                 ChatDto(
                     "Testing",
-                    1240
+                    1240,
+                    mutableListOf()
                 ),
                 ChatDto(
                     "Testing",
-                    1240
+                    1240,
+                    mutableListOf()
                 )
             )
         ),
@@ -63,7 +80,8 @@ object TestData {
             listOf(
                 ChatDto(
                     "Testing",
-                    1240
+                    1240,
+                    mutableListOf()
                 )
             )
         ),
@@ -72,7 +90,8 @@ object TestData {
             listOf(
                 ChatDto(
                     "Testing",
-                    1240
+                    1240,
+                    mutableListOf()
                 )
             )
         ),
