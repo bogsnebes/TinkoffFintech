@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionAddViewButton
 import kotlin.math.ceil
 
 class FlexBoxLayout @JvmOverloads constructor(

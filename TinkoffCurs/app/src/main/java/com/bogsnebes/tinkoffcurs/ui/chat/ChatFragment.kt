@@ -49,13 +49,14 @@ class ChatFragment : Fragment() {
                     id++
                     chatDto.messages.add(
                         MessageDto(
-                            id, 123, "Писатель 1", editText.text.toString(),
+                            id, 123, getString(R.string.writer_1), editText.text.toString(),
                             null, listOf(), "03.01.2020"
                         )
                     )
                     recyclerMessage.adapter = messageAdapter
                 } else {
-                    Toast.makeText(view.context, "Прикрепите фото", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, getString(R.string.test), Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

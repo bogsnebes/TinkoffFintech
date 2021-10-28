@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
 import com.bogsnebes.tinkoffcurs.R
@@ -18,8 +17,8 @@ abstract class MessageView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
-    abstract val flexBoxLayout: FlexBoxLayout
-    abstract val messageTextView: MessageViewText
+    protected abstract val flexBoxLayout: FlexBoxLayout
+    protected abstract val messageTextView: MessageViewText
 
     fun setOnAddReactionClickListener(addReactionClickListener: (addReactionButton: ReactionAddViewButton) -> Unit) {
         val addReactionButton =
@@ -29,22 +28,10 @@ abstract class MessageView @JvmOverloads constructor(
         }
     }
 
-    fun setOnReactionClickListener(reactionClickListener: (view: View) -> Unit) {
+    fun setOnReactionClickListener(reactionClickListener: (reactionButton: ReactionButton, flexbox: FlexBoxLayout) -> Unit) {
         flexBoxLayout.children.filter { it is ReactionButton }.forEach { it ->
             it.setOnClickListener {
-                it as ReactionButton
-                it.isSelected = !it.isSelected
-                if (!it.isSelected) {
-                    it.setTextColor(Color.WHITE)
-                    it.countReactions++
-                } else {
-                    it.setTextColor(Color.GRAY)
-                    it.countReactions--
-                }
-                if (it.countReactions <= 0) {
-                    flexBoxLayout.removeView(it)
-                }
-                reactionClickListener(it)
+                reactionClickListener(it as ReactionButton, flexBoxLayout)
             }
         }
     }

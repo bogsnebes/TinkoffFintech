@@ -14,7 +14,7 @@ import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
 class ChatsRecyclerAdapter(
     private val context: Context,
     private val chatList: List<ChatDto>,
-    private val callback: (chat: ChatDto) -> Unit
+    private val callbackChat: (chat: ChatDto) -> Unit
 ) : RecyclerView.Adapter<ChatsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -44,7 +44,7 @@ class ChatsRecyclerAdapter(
             }
         }
         holder.itemView.setOnClickListener {
-            callback(chatList[position])
+            callbackChat(chatList[position])
         }
     }
 

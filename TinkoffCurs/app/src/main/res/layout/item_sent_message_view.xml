@@ -26,6 +26,6 @@
         android:id="@+id/rfbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:erfb_space_between_vertical="8dp"
-        app:erfb_space_between_horizontal="10dp" />
+        app:erfb_space_between_horizontal="10dp"
+        app:erfb_space_between_vertical="8dp" />
 </merge>

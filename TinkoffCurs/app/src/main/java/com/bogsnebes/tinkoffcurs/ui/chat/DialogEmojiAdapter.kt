@@ -11,12 +11,12 @@ import com.bogsnebes.tinkoffcurs.R
 class DialogEmojiAdapter(
     private val context: Context,
     private val emojiList: List<String>,
-    private val callback: (emoji: String) -> Unit
+    private val callbackEmoji: (emoji: String) -> Unit
 ) : RecyclerView.Adapter<DialogEmojiAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): DialogEmojiAdapter.ViewHolder {
+    ): ViewHolder {
         val view =
             LayoutInflater.from(context)
                 .inflate(R.layout.item_dialog_emoji_adapter, parent, false)
@@ -30,11 +30,11 @@ class DialogEmojiAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.emoji.text = emojiList[position]
         holder.emoji.setOnClickListener {
-            callback.invoke(emojiList[position])
+            callbackEmoji.invoke(emojiList[position])
         }
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val emoji: TextView = view.findViewById(R.id.emojiTv)
     }
 }

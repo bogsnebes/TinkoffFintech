@@ -79,22 +79,22 @@
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/back"
         app:layout_constraintBottom_toTopOf="@+id/messageRv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:contentDescription="@string/back" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        tools:text="#general"
-        android:textSize="@dimen/header2_text"
         android:textColor="@color/white"
+        android:textSize="@dimen/header2_text"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
         app:layout_constraintStart_toEndOf="@+id/imageButton3"
-        app:layout_constraintTop_toTopOf="@+id/imageButton3" />
+        app:layout_constraintTop_toTopOf="@+id/imageButton3"
+        tools:text="#general" />
 </androidx.constraintlayout.widget.ConstraintLayout>

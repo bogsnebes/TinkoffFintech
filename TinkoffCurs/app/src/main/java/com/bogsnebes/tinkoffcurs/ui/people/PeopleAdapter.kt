@@ -15,12 +15,12 @@ import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
 class PeopleAdapter(
     private val context: Context,
     private val profileList: List<ProfileDto>,
-    private val callback: (profile: ProfileDto) -> Unit
+    private val callbackProfile: (profile: ProfileDto) -> Unit
 ) : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PeopleAdapter.ViewHolder {
+    ): ViewHolder {
         val view =
             LayoutInflater.from(context)
                 .inflate(R.layout.item_people_adapter, parent, false)
@@ -47,11 +47,11 @@ class PeopleAdapter(
         holder.name.text = profileList[position].name
         holder.email.text = profileList[position].email
         holder.itemView.setOnClickListener {
-            callback.invoke(profileList[position])
+            callbackProfile.invoke(profileList[position])
         }
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val avatar: ImageView = view.findViewById(R.id.avatarPeopleIv)
         val name: TextView = view.findViewById(R.id.namePeopleTv)
         val email: TextView = view.findViewById(R.id.emailPeopleTv)

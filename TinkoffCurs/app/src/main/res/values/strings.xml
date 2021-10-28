@@ -14,4 +14,7 @@
     <string name="offline">offline</string>
     <string name="log_out">Log out</string>
     <string name="mes">mes</string>
+    <string name="writer_1">Писатель 1</string>
+    <string name="writer_2">Прикрепите фото</string>
+    <string name="test">Test</string>
 </resources>
