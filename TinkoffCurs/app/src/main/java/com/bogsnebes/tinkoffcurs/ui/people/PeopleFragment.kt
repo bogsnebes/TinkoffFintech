@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.data.dto.TestData
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.PeopleAdapter
 
 class PeopleFragment : Fragment() {
     private lateinit var viewModel: PeopleViewModel

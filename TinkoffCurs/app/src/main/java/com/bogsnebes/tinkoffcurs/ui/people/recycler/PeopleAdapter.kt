@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.ui.people
+package com.bogsnebes.tinkoffcurs.ui.people.recycler
 
 import android.content.Context
 import android.view.LayoutInflater

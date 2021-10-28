@@ -81,13 +81,6 @@ class FlexBoxLayout @JvmOverloads constructor(
         }
     }
 
-    fun addChildren(children: List<View>) {
-        for (child in children) {
-            this.addView(child)
-        }
-        requestLayout()
-    }
-
     override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
         return MarginLayoutParams(context, attrs)
     }

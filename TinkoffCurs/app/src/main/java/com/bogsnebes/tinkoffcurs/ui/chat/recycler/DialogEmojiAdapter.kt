@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.ui.chat
+package com.bogsnebes.tinkoffcurs.ui.chat.recycler
 
 import android.content.Context
 import android.view.LayoutInflater

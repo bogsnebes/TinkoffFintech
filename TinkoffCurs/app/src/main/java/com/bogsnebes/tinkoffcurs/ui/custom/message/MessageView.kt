@@ -41,19 +41,8 @@ abstract class MessageView @JvmOverloads constructor(
         requestLayout()
     }
 
-    fun addReactions(reactions: List<ReactionButton>) {
-        flexBoxLayout.addChildren(reactions)
-        flexBoxLayout.addView(ReactionAddViewButton(context).apply {
-            val padding10inDp = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics
-            ).toInt()
-            val padding5inDp = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics
-            ).toInt()
-            this.setPadding(padding10inDp, padding5inDp, padding10inDp, padding5inDp)
-            this.setBackgroundResource(R.drawable.bg_emoji_reaction_button)
-        })
-        requestLayout()
+    fun removeReactions() {
+        flexBoxLayout.removeAllViews()
     }
 
     fun addReaction(
