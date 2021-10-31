@@ -13,8 +13,8 @@ import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
 
 class ChatsRecyclerAdapter(
     private val context: Context,
-    private val chatList: List<ChatDto>,
-    private val callbackChat: (chat: ChatDto) -> Unit
+    private val chatList: MutableList<ChatDto>,
+    private var callbackChat: (chat: ChatDto) -> Unit
 ) : RecyclerView.Adapter<ChatsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -46,6 +46,16 @@ class ChatsRecyclerAdapter(
         holder.itemView.setOnClickListener {
             callbackChat(chatList[position])
         }
+    }
+
+    fun setItems(newList: List<ChatDto>) {
+        chatList.clear()
+        chatList.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun setCallbackChat(callbackChatTwo: (chat: ChatDto) -> Unit) {
+        callbackChat = callbackChatTwo
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

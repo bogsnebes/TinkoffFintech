@@ -15,7 +15,6 @@ import com.bogsnebes.tinkoffcurs.ui.people.recycler.PeopleAdapter
 
 class PeopleFragment : Fragment() {
     private lateinit var viewModel: PeopleViewModel
-    private lateinit var recyclerPeople: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +26,7 @@ class PeopleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PeopleViewModel::class.java)
-        recyclerPeople = view.findViewById(R.id.peopleRv)
+        val recyclerPeople: RecyclerView = view.findViewById(R.id.peopleRv)
         val peopleAdapter = PeopleAdapter(view.context, TestData.testPeopleList) {
             parentFragmentManager.setFragmentResult(
                 PROFILE_OPEN_KEY,
@@ -40,7 +39,7 @@ class PeopleFragment : Fragment() {
 
     companion object {
         const val PROFILE_OPEN_KEY: String = "PROFILE_OPEN_KEY"
-
+        const val TAG: String = "PeopleFragment"
         fun newInstance() = PeopleFragment()
     }
 }

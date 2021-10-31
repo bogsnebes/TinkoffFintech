@@ -18,20 +18,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(R.layout.main_activity),
     BottomNavigationView.OnNavigationItemSelectedListener {
+    private val channelsFragment by lazy { ChannelsFragment.newInstance() }
+    private val peopleFragment by lazy { PeopleFragment.newInstance() }
+    private val profileFragment by lazy { ProfileFragment.newInstance(TestData.testProfile) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, ChannelsFragment())
-            .commitAllowingStateLoss()
+            .add(R.id.container, channelsFragment)
+            .add(R.id.container, peopleFragment)
+            .add(R.id.container, profileFragment)
+            .hide(peopleFragment)
+            .hide(profileFragment)
+            .commitNow()
 
         supportFragmentManager.setFragmentResultListener(
             PeopleFragment.PROFILE_OPEN_KEY, this
         ) { _, bundle ->
             (bundle.getSerializable(PeopleFragment.PROFILE_OPEN_KEY) as? ProfileDto)?.let {
                 supportFragmentManager.beginTransaction()
+                    .addToBackStack(PeopleFragment.TAG)
                     .add(R.id.container, ProfileFragment.newInstance(it))
-                    .hide(PeopleFragment())
+                    .hide(peopleFragment)
                     .commit()
             }
         }
@@ -42,11 +50,19 @@ class MainActivity : AppCompatActivity(R.layout.main_activity),
             StreamsFragment.CHAT_OPEN_KEY, this
         ) { _, bundle ->
             (bundle.getSerializable(StreamsFragment.CHAT_OPEN_KEY) as? ChatDto)?.let {
-                bottomNavigationMenu.visibility = View.GONE
                 supportFragmentManager.beginTransaction()
+                    .addToBackStack(ChannelsFragment.TAG)
                     .add(R.id.container, ChatFragment.newInstance(it))
-                    .hide(ChannelsFragment())
+                    .hide(channelsFragment)
                     .commit()
+            }
+        }
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                bottomNavigationMenu.visibility = View.GONE
+            } else {
+                bottomNavigationMenu.visibility = View.VISIBLE
             }
         }
     }
@@ -55,16 +71,22 @@ class MainActivity : AppCompatActivity(R.layout.main_activity),
         when (item.itemId) {
             R.id.channels -> supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, ChannelsFragment())
-                .commitAllowingStateLoss()
+                .show(channelsFragment)
+                .hide(peopleFragment)
+                .hide(profileFragment)
+                .commit()
             R.id.people -> supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, PeopleFragment())
-                .commitAllowingStateLoss()
+                .show(peopleFragment)
+                .hide(channelsFragment)
+                .hide(profileFragment)
+                .commit()
             R.id.profile -> supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, ProfileFragment.newInstance(TestData.testProfile))
-                .commitAllowingStateLoss()
+                .show(profileFragment)
+                .hide(peopleFragment)
+                .hide(channelsFragment)
+                .commit()
         }
         return true
     }

@@ -6,15 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.data.dto.TestData
+import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsViewModel
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.StreamsRecyclerAdapter
 
 class StreamsFragment : Fragment() {
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewModel: ChannelsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +28,8 @@ class StreamsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.channelsRv)
+        val recyclerView: RecyclerView = view.findViewById(R.id.channelsRv)
+        viewModel = ViewModelProvider(this).get(ChannelsViewModel::class.java)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(view.context)
             adapter = StreamsRecyclerAdapter(
@@ -46,6 +50,26 @@ class StreamsFragment : Fragment() {
                     )
                 })
         }
+        viewModel.resultStreams.observe(viewLifecycleOwner, Observer { streamsDto ->
+            recyclerView.adapter = StreamsRecyclerAdapter(
+                view.context,
+                streamsDto,
+                callbackStream = { _, holder ->
+                    if (holder.recyclerView.visibility == View.VISIBLE) {
+                        holder.recyclerView.visibility = View.GONE
+                        holder.arrow.load(R.drawable.ic_arrow_drop_down)
+                    } else {
+                        holder.recyclerView.visibility = View.VISIBLE
+                        holder.arrow.load(R.drawable.ic_arrow_drop_up)
+                    }
+                }, callbackChat = {
+                    parentFragmentManager.setFragmentResult(
+                        CHAT_OPEN_KEY,
+                        bundleOf(CHAT_OPEN_KEY to it)
+                    )
+                })
+        })
+        viewModel.loadCacheData()
     }
 
     companion object {

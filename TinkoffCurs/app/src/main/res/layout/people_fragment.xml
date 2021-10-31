@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/searchChannelsEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,9 +39,9 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/search"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/searchChannelsEt"
         app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toTopOf="@+id/searchChannelsEt"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_search"
         tools:ignore="SpeakableTextPresentCheck" />

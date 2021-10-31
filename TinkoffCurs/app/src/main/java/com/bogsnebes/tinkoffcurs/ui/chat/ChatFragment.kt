@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -25,9 +26,11 @@ import com.bogsnebes.tinkoffcurs.ui.chat.recycler.DialogEmojiAdapter
 import com.bogsnebes.tinkoffcurs.ui.chat.recycler.MessageAdapter
 
 class ChatFragment : Fragment() {
-    private lateinit var recyclerMessage: RecyclerView
     private lateinit var viewModel: ChatViewModel
     private var sendButtonFlag: Boolean = false
+    private val chatDto: ChatDto
+        get() = requireArguments().getSerializable(CHAT) as ChatDto
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,32 +42,39 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-        val button = view.findViewById<ImageButton>(R.id.imageButton)
-        val editText = view.findViewById<EditText>(R.id.editText)
-        (arguments?.getSerializable(CHAT) as? ChatDto)?.let { chatDto ->
-            val messageAdapter = MessageAdapter(view.context, chatDto.messages) {
-                showBottomDialog(view.context, it)
-            }
-            recyclerMessage = view.findViewById(R.id.messageRv)
-            recyclerMessage.layoutManager =
-                LinearLayoutManager(view.context).apply { stackFromEnd = true }
-            recyclerMessage.adapter = messageAdapter
-            var id = 1
-            button.load(R.drawable.ic_button_cross)
-            button.setOnClickListener {
-                if (sendButtonFlag) {
-                    id++
-                    chatDto.messages.add(
-                        MessageDto(
-                            id, 123, getString(R.string.writer_1), editText.text.toString(),
-                            null, listOf(), "03.01.2020"
-                        )
+        val sendMessageButton: ImageButton = view.findViewById(R.id.sendMessageIb)
+        val editText: EditText = view.findViewById(R.id.editText)
+        val header: TextView = view.findViewById(R.id.headerChatTv)
+        val topic: TextView = view.findViewById(R.id.topicChatTv)
+        val backButton: ImageButton = view.findViewById(R.id.backChatIb)
+        val messageAdapter = MessageAdapter(view.context, chatDto.messages) {
+            showBottomDialog(view.context, it)
+        }
+        header.text = chatDto.category
+        topic.text = getString(R.string.topic) + ": " + chatDto.name
+        backButton.setOnClickListener {
+            parentFragmentManager
+                .popBackStack()
+        }
+        val recyclerMessage: RecyclerView = view.findViewById(R.id.messageRv)
+        recyclerMessage.layoutManager =
+            LinearLayoutManager(view.context).apply { stackFromEnd = true }
+        recyclerMessage.adapter = messageAdapter
+        var id = 1
+        sendMessageButton.load(R.drawable.ic_button_cross)
+        sendMessageButton.setOnClickListener {
+            if (sendButtonFlag) {
+                id++
+                chatDto.messages.add(
+                    MessageDto(
+                        id, 123, getString(R.string.writer_1), editText.text.toString(),
+                        null, listOf(), "03.01.2020"
                     )
-                    recyclerMessage.adapter = messageAdapter
-                } else {
-                    Toast.makeText(view.context, getString(R.string.test), Toast.LENGTH_SHORT)
-                        .show()
-                }
+                )
+                recyclerMessage.adapter = messageAdapter
+            } else {
+                Toast.makeText(view.context, getString(R.string.test), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
         editText.addTextChangedListener(object : TextWatcher {
@@ -74,10 +84,10 @@ class ChatFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (isEmpty(editText)) {
                     sendButtonFlag = false
-                    button.setImageDrawable(resources.getDrawable(R.drawable.ic_button_cross))
+                    sendMessageButton.setImageDrawable(resources.getDrawable(R.drawable.ic_button_cross))
                 } else {
                     sendButtonFlag = true
-                    button.setImageDrawable(resources.getDrawable(R.drawable.ic_button_send_message))
+                    sendMessageButton.setImageDrawable(resources.getDrawable(R.drawable.ic_button_send_message))
                 }
             }
         })

@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/searchChannelsEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_dimen"
@@ -38,9 +38,9 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/search"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/searchChannelsEt"
         app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toTopOf="@+id/searchChannelsEt"
         app:srcCompat="@drawable/ic_search"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"

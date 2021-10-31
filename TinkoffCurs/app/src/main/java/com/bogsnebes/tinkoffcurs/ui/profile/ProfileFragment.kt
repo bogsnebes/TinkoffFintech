@@ -33,6 +33,7 @@ class ProfileFragment : Fragment() {
         val name: TextView = view.findViewById(R.id.nameProfileTv)
         val email: TextView = view.findViewById(R.id.emailProfileTv)
         val online: TextView = view.findViewById(R.id.onlineProfileTv)
+        val backButton: ImageButton = view.findViewById(R.id.backProfileIb)
         (arguments?.getSerializable(PROFILE) as? ProfileDto)?.let { profileDto ->
             profileDto.avatar?.let {
                 avatar.load(profileDto.avatar) {
@@ -40,6 +41,10 @@ class ProfileFragment : Fragment() {
                         RoundedCornersTransformation(CORNERS_RADIUS)
                     )
                 }
+            }
+            backButton.setOnClickListener {
+                parentFragmentManager
+                    .popBackStack()
             }
             name.text = profileDto.name
             email.text = profileDto.email
@@ -70,5 +75,7 @@ class ProfileFragment : Fragment() {
         fun newInstance(profileDto: ProfileDto) = ProfileFragment().apply {
             arguments = bundleOf(PROFILE to profileDto)
         }
+
+        fun newInstance() = ProfileFragment()
     }
 }

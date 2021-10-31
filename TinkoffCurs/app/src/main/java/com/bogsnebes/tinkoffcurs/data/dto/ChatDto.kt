@@ -5,5 +5,6 @@ import java.io.Serializable
 data class ChatDto(
     val name: String,
     val countMessages: Int,
-    val messages: MutableList<MessageDto>
-): Serializable
+    val messages: MutableList<MessageDto>,
+    var category: String = ""
+) : Serializable
