@@ -18,4 +18,6 @@
     <string name="writer_2">Прикрепите фото</string>
     <string name="test">Test</string>
     <string name="topic">Topic</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="all_streams">All streams</string>
 </resources>

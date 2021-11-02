@@ -14,7 +14,7 @@ import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
 
 class PeopleAdapter(
     private val context: Context,
-    private val profileList: List<ProfileDto>,
+    private val profileList: MutableList<ProfileDto>,
     private val callbackProfile: (profile: ProfileDto) -> Unit
 ) : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
@@ -49,6 +49,12 @@ class PeopleAdapter(
         holder.itemView.setOnClickListener {
             callbackProfile.invoke(profileList[position])
         }
+    }
+
+    fun setItems(newList: List<ProfileDto>) {
+        profileList.clear()
+        profileList.addAll(newList)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

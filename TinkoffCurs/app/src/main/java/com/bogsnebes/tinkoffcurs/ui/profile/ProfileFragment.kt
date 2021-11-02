@@ -70,6 +70,7 @@ class ProfileFragment : Fragment() {
     }
 
     companion object {
+        const val TAG = "ProfileFragment"
         private const val PROFILE: String = "PROFILE"
         private const val CORNERS_RADIUS = 16f
         fun newInstance(profileDto: ProfileDto) = ProfileFragment().apply {

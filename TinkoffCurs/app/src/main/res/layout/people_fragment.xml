@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/searchChannelsEt"
+        android:id="@+id/searchPeopleEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,7 +24,7 @@
         android:importantForAutofill="no"
         android:inputType="text"
         android:minHeight="48dp"
-        android:text="@string/users"
+        android:hint="@string/users"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/view"
@@ -39,9 +39,9 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/search"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/searchChannelsEt"
+        app:layout_constraintBottom_toBottomOf="@+id/searchPeopleEt"
         app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/searchChannelsEt"
+        app:layout_constraintTop_toTopOf="@+id/searchPeopleEt"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_search"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -55,5 +55,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <ProgressBar
+        android:id="@+id/peopleProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/peopleRv"
+        app:layout_constraintEnd_toEndOf="@+id/peopleRv"
+        app:layout_constraintStart_toStartOf="@+id/peopleRv"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

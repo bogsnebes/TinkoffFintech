@@ -5,14 +5,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.*
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -77,20 +76,15 @@ class ChatFragment : Fragment() {
                     .show()
             }
         }
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                if (isEmpty(editText)) {
-                    sendButtonFlag = false
-                    sendMessageButton.setImageDrawable(resources.getDrawable(R.drawable.ic_button_cross))
-                } else {
-                    sendButtonFlag = true
-                    sendMessageButton.setImageDrawable(resources.getDrawable(R.drawable.ic_button_send_message))
-                }
+        editText.doAfterTextChanged {
+            if (isEmpty(editText)) {
+                sendButtonFlag = false
+                sendMessageButton.setImageDrawable(resources.getDrawable(R.drawable.ic_button_cross))
+            } else {
+                sendButtonFlag = true
+                sendMessageButton.setImageDrawable(resources.getDrawable(R.drawable.ic_button_send_message))
             }
-        })
+        }
     }
 
     private fun isEmpty(editText: EditText): Boolean {

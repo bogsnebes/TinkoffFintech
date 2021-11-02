@@ -1,12 +1,11 @@
 package com.bogsnebes.tinkoffcurs.ui.channels
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -27,23 +26,18 @@ class ChannelsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChannelsViewModel::class.java)
-        val search: EditText = view.findViewById(R.id.searchChannelsEt)
-        search.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.filter(s.toString())
-            }
-        })
+        viewModel = ViewModelProvider(requireActivity()).get(ChannelsViewModel::class.java)
+        val search: EditText = view.findViewById(R.id.searchPeopleEt)
+        search.doAfterTextChanged {
+            viewModel.searchStream(it.toString())
+        }
         val viewPager: ViewPager2 = view.findViewById(R.id.viewPager)
         val tabLayout: TabLayout = view.findViewById(R.id.tabLayout)
         viewPager.adapter = StreamsViewPagerAdapter(parentFragmentManager, lifecycle)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Subscribed"
-                else -> tab.text = "All streams"
+                0 -> tab.text = getString(R.string.subscribed)
+                else -> tab.text = getString(R.string.all_streams)
             }
         }.attach()
     }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
 import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
-import com.bogsnebes.tinkoffcurs.data.dto.TestData
+import com.bogsnebes.tinkoffcurs.data.TestData
 import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsFragment
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.StreamsFragment
 import com.bogsnebes.tinkoffcurs.ui.chat.ChatFragment

@@ -13,7 +13,7 @@ import com.bogsnebes.tinkoffcurs.data.dto.StreamDto
 
 class StreamsRecyclerAdapter(
     private val context: Context,
-    private val streamsList: List<StreamDto>,
+    private val streamsList: MutableList<StreamDto>,
     private val callbackStream: (stream: StreamDto, holder: ViewHolder) -> Unit,
     private val callbackChat: (chat: ChatDto) -> Unit
 ) : RecyclerView.Adapter<StreamsRecyclerAdapter.ViewHolder>() {
@@ -45,11 +45,18 @@ class StreamsRecyclerAdapter(
         }
     }
 
+    fun setItems(newList: List<StreamDto>) {
+        streamsList.clear()
+        streamsList.addAll(newList)
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(context: Context, view: View, callbackChat: (chat: ChatDto) -> Unit) :
         RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.nameStreamTv)
         val recyclerView: RecyclerView = view.findViewById(R.id.streamRv)
         val arrow: ImageView = view.findViewById(R.id.arrowStreamIv)
+
         init {
             recyclerView.adapter = ChatsRecyclerAdapter(context, mutableListOf()) {
                 callbackChat(it)

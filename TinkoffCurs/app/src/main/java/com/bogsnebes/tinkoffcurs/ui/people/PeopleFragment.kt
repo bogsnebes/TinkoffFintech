@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.data.dto.TestData
 import com.bogsnebes.tinkoffcurs.ui.people.recycler.PeopleAdapter
 
 class PeopleFragment : Fragment() {
@@ -27,14 +31,38 @@ class PeopleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PeopleViewModel::class.java)
         val recyclerPeople: RecyclerView = view.findViewById(R.id.peopleRv)
-        val peopleAdapter = PeopleAdapter(view.context, TestData.testPeopleList) {
+        val progressBar: ProgressBar = view.findViewById(R.id.peopleProgressBar)
+        val search: EditText = view.findViewById(R.id.searchPeopleEt)
+        search.doAfterTextChanged {
+            viewModel.searchProfile(it.toString())
+        }
+        val peopleAdapter = PeopleAdapter(view.context, mutableListOf()) {
             parentFragmentManager.setFragmentResult(
                 PROFILE_OPEN_KEY,
                 bundleOf(PROFILE_OPEN_KEY to it)
             )
         }
-        recyclerPeople.layoutManager = LinearLayoutManager(view.context)
-        recyclerPeople.adapter = peopleAdapter
+        recyclerPeople.apply {
+            layoutManager = LinearLayoutManager(view.context)
+            adapter = peopleAdapter
+        }
+
+        viewModel.peopleScreenState.observe(viewLifecycleOwner) {
+            when (it) {
+                is PeopleScreenState.Result -> {
+                    peopleAdapter.setItems(it.items)
+                    recyclerPeople.scrollToPosition(0)
+                    progressBar.isVisible = false
+                }
+                is PeopleScreenState.Loading -> {
+                    progressBar.isVisible = true
+                }
+                else -> {
+                    Toast.makeText(view.context, "Error", Toast.LENGTH_SHORT).show()
+                    progressBar.isVisible = false
+                }
+            }
+        }
     }
 
     companion object {

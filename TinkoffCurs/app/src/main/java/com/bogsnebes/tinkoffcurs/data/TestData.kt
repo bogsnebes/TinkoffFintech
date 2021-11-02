@@ -1,4 +1,6 @@
-package com.bogsnebes.tinkoffcurs.data.dto
+package com.bogsnebes.tinkoffcurs.data
+
+import com.bogsnebes.tinkoffcurs.data.dto.*
 
 object TestData {
     val testPeopleList: MutableList<ProfileDto> = mutableListOf(
