@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.data.dto
+package com.bogsnebes.tinkoffcurs.ui.people.recycler
 
 import java.io.Serializable
 

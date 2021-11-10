@@ -2,7 +2,7 @@ package com.bogsnebes.tinkoffcurs.data.impl
 
 import androidx.annotation.WorkerThread
 import com.bogsnebes.tinkoffcurs.data.TestData
-import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 import io.reactivex.Observable
 
 class PeopleImpl {

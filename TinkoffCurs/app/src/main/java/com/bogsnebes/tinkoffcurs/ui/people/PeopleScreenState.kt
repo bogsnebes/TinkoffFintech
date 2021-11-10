@@ -1,6 +1,6 @@
 package com.bogsnebes.tinkoffcurs.ui.people
 
-import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 
 
 sealed class PeopleScreenState {

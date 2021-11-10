@@ -36,8 +36,14 @@ class ChannelsFragment : Fragment() {
         viewPager.adapter = StreamsViewPagerAdapter(parentFragmentManager, lifecycle)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = getString(R.string.subscribed)
-                else -> tab.text = getString(R.string.all_streams)
+                0 -> {
+                    tab.text = getString(R.string.subscribed)
+                    viewModel.subscribedFragment = false
+                }
+                else -> {
+                    tab.text = getString(R.string.all_streams)
+                    viewModel.subscribedFragment = true
+                }
             }
         }.attach()
     }

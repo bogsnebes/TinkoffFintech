@@ -1,6 +1,10 @@
 package com.bogsnebes.tinkoffcurs.data
 
-import com.bogsnebes.tinkoffcurs.data.dto.*
+import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.ChatItem
+import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.StreamItem
+import com.bogsnebes.tinkoffcurs.ui.chat.recycler.MessageDto
+import com.bogsnebes.tinkoffcurs.ui.chat.recycler.ReactionDto
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 
 object TestData {
     val testPeopleList: MutableList<ProfileDto> = mutableListOf(
@@ -43,10 +47,10 @@ object TestData {
     )
 
     val testStreams = mutableListOf(
-        StreamDto(
+        StreamItem(
             "#general",
             listOf(
-                ChatDto(
+                ChatItem(
                     "Testing",
                     1240,
                     mutableListOf(
@@ -65,32 +69,32 @@ object TestData {
                         )
                     )
                 ),
-                ChatDto(
+                ChatItem(
                     "Testing",
                     1240,
                     mutableListOf()
                 ),
-                ChatDto(
+                ChatItem(
                     "Testing",
                     1240,
                     mutableListOf()
                 )
             )
         ),
-        StreamDto(
+        StreamItem(
             "#directory",
             listOf(
-                ChatDto(
+                ChatItem(
                     "Testing",
                     1240,
                     mutableListOf()
                 )
             )
         ),
-        StreamDto(
+        StreamItem(
             "#hr",
             listOf(
-                ChatDto(
+                ChatItem(
                     "Testing",
                     1240,
                     mutableListOf()

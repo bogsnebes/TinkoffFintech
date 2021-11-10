@@ -19,16 +19,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
-import com.bogsnebes.tinkoffcurs.data.dto.MessageDto
+import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.ChatItem
+import com.bogsnebes.tinkoffcurs.ui.chat.recycler.MessageDto
 import com.bogsnebes.tinkoffcurs.ui.chat.recycler.DialogEmojiAdapter
 import com.bogsnebes.tinkoffcurs.ui.chat.recycler.MessageAdapter
 
 class ChatFragment : Fragment() {
     private lateinit var viewModel: ChatViewModel
     private var sendButtonFlag: Boolean = false
-    private val chatDto: ChatDto
-        get() = requireArguments().getSerializable(CHAT) as ChatDto
+    private val chatItem: ChatItem
+        get() = requireArguments().getSerializable(CHAT) as ChatItem
 
 
     override fun onCreateView(
@@ -46,11 +46,11 @@ class ChatFragment : Fragment() {
         val header: TextView = view.findViewById(R.id.headerChatTv)
         val topic: TextView = view.findViewById(R.id.topicChatTv)
         val backButton: ImageButton = view.findViewById(R.id.backChatIb)
-        val messageAdapter = MessageAdapter(view.context, chatDto.messages) {
+        val messageAdapter = MessageAdapter(view.context, chatItem.messages) {
             showBottomDialog(view.context, it)
         }
-        header.text = chatDto.category
-        topic.text = getString(R.string.topic) + ": " + chatDto.name
+        header.text = chatItem.category
+        topic.text = getString(R.string.topic) + ": " + chatItem.name
         backButton.setOnClickListener {
             parentFragmentManager
                 .popBackStack()
@@ -64,7 +64,7 @@ class ChatFragment : Fragment() {
         sendMessageButton.setOnClickListener {
             if (sendButtonFlag) {
                 id++
-                chatDto.messages.add(
+                chatItem.messages.add(
                     MessageDto(
                         id, 123, getString(R.string.writer_1), editText.text.toString(),
                         null, listOf(), "03.01.2020"
@@ -135,8 +135,8 @@ class ChatFragment : Fragment() {
     companion object {
         private const val CHAT: String = "CHAT"
 
-        fun newInstance(chatDto: ChatDto) = ChatFragment().apply {
-            arguments = bundleOf(CHAT to chatDto)
+        fun newInstance(chatItem: ChatItem) = ChatFragment().apply {
+            arguments = bundleOf(CHAT to chatItem)
         }
     }
 }

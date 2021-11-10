@@ -16,6 +16,8 @@ import coil.load
 import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsViewModel
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.StreamsRecyclerAdapter
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
+import com.bogsnebes.tinkoffcurs.ui.profile.ProfileFragment
 
 class StreamsFragment : Fragment() {
     private lateinit var viewModel: ChannelsViewModel
@@ -64,7 +66,7 @@ class StreamsFragment : Fragment() {
                     progressBar.isVisible = true
                 }
                 else -> {
-                    Toast.makeText(view.context, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, getString(R.string.error), Toast.LENGTH_SHORT).show()
                     progressBar.isVisible = false
                 }
             }

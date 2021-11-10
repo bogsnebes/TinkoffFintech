@@ -1,8 +1,9 @@
-package com.bogsnebes.tinkoffcurs.data.dto
+package com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler
 
+import com.bogsnebes.tinkoffcurs.ui.chat.recycler.MessageDto
 import java.io.Serializable
 
-data class ChatDto(
+data class ChatItem(
     val name: String,
     val countMessages: Int,
     val messages: MutableList<MessageDto>,

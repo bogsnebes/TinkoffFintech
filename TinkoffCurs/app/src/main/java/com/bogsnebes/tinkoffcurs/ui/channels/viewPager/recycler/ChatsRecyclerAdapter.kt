@@ -9,12 +9,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
 
 class ChatsRecyclerAdapter(
     private val context: Context,
-    private val chatList: MutableList<ChatDto>,
-    private var callbackChat: (chat: ChatDto) -> Unit
+    private val chatList: MutableList<ChatItem>,
+    private var callbackChat: (chat: ChatItem) -> Unit
 ) : RecyclerView.Adapter<ChatsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -48,13 +47,13 @@ class ChatsRecyclerAdapter(
         }
     }
 
-    fun setItems(newList: List<ChatDto>) {
+    fun setItems(newList: List<ChatItem>) {
         chatList.clear()
         chatList.addAll(newList)
         notifyDataSetChanged()
     }
 
-    fun setCallbackChat(callbackChatTwo: (chat: ChatDto) -> Unit) {
+    fun setCallbackChat(callbackChatTwo: (chat: ChatItem) -> Unit) {
         callbackChat = callbackChatTwo
     }
 

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
 
 class PeopleAdapter(
     private val context: Context,

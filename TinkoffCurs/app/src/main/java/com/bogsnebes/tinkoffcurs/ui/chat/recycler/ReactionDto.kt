@@ -1,4 +1,4 @@
-package com.bogsnebes.tinkoffcurs.data.dto
+package com.bogsnebes.tinkoffcurs.ui.chat.recycler
 
 data class ReactionDto(
     val userId: Int,

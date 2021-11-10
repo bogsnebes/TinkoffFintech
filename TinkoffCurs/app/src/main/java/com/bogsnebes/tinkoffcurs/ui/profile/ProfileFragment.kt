@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 
 class ProfileFragment : Fragment() {
     private lateinit var viewModel: ProfileViewModel

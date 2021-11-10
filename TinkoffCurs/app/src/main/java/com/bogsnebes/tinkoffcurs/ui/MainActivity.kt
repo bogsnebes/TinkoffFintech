@@ -5,8 +5,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
-import com.bogsnebes.tinkoffcurs.data.dto.ProfileDto
+import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.ChatItem
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 import com.bogsnebes.tinkoffcurs.data.TestData
 import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsFragment
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.StreamsFragment
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity),
         supportFragmentManager.setFragmentResultListener(
             StreamsFragment.CHAT_OPEN_KEY, this
         ) { _, bundle ->
-            (bundle.getSerializable(StreamsFragment.CHAT_OPEN_KEY) as? ChatDto)?.let {
+            (bundle.getSerializable(StreamsFragment.CHAT_OPEN_KEY) as? ChatItem)?.let {
                 supportFragmentManager.beginTransaction()
                     .addToBackStack(ChannelsFragment.TAG)
                     .add(R.id.container, ChatFragment.newInstance(it))

@@ -8,14 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.data.dto.ChatDto
-import com.bogsnebes.tinkoffcurs.data.dto.StreamDto
 
 class StreamsRecyclerAdapter(
     private val context: Context,
-    private val streamsList: MutableList<StreamDto>,
-    private val callbackStream: (stream: StreamDto, holder: ViewHolder) -> Unit,
-    private val callbackChat: (chat: ChatDto) -> Unit
+    private val streamsList: MutableList<StreamItem>,
+    private val callbackStream: (stream: StreamItem, holder: ViewHolder) -> Unit,
+    private val callbackChat: (chat: ChatItem) -> Unit
 ) : RecyclerView.Adapter<StreamsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -45,13 +43,13 @@ class StreamsRecyclerAdapter(
         }
     }
 
-    fun setItems(newList: List<StreamDto>) {
+    fun setItems(newList: List<StreamItem>) {
         streamsList.clear()
         streamsList.addAll(newList)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(context: Context, view: View, callbackChat: (chat: ChatDto) -> Unit) :
+    class ViewHolder(context: Context, view: View, callbackChat: (chat: ChatItem) -> Unit) :
         RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.nameStreamTv)
         val recyclerView: RecyclerView = view.findViewById(R.id.streamRv)
