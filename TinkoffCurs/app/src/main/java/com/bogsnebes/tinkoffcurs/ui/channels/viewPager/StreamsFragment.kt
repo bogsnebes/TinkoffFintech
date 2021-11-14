@@ -16,8 +16,7 @@ import coil.load
 import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsViewModel
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.StreamsRecyclerAdapter
-import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
-import com.bogsnebes.tinkoffcurs.ui.profile.ProfileFragment
+import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.TopicItem
 
 class StreamsFragment : Fragment() {
     private lateinit var viewModel: ChannelsViewModel
@@ -33,7 +32,7 @@ class StreamsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: RecyclerView = view.findViewById(R.id.channelsRv)
-        val progressBar: ProgressBar = view.findViewById(R.id.streamProgressBar)
+        val progressBar: ProgressBar = view.findViewById(R.id.chatProgressBar)
         viewModel = ViewModelProvider(requireActivity()).get(ChannelsViewModel::class.java)
         streamsAdapter = StreamsRecyclerAdapter(view.context, mutableListOf(),
             callbackStream = { _, holder ->

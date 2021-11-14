@@ -14,7 +14,7 @@ data class Message(
     @SerializedName("is_me_message")
     val isMeMessage: Boolean,
     @SerializedName("sender_full_name")
-    val senderName: Int,
+    val senderName: String,
     @SerializedName("sender_id")
     val senderId: Int,
     @SerializedName("timestamp")

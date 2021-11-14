@@ -12,8 +12,8 @@ import com.bogsnebes.tinkoffcurs.R
 
 class ChatsRecyclerAdapter(
     private val context: Context,
-    private val chatList: MutableList<ChatItem>,
-    private var callbackChat: (chat: ChatItem) -> Unit
+    private val topicList: MutableList<TopicItem>,
+    private var callbackChat: (chat: TopicItem) -> Unit
 ) : RecyclerView.Adapter<ChatsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,13 +26,13 @@ class ChatsRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return chatList.size
+        return topicList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = chatList[position].name
+        holder.name.text = topicList[position].name
         holder.messages.text =
-            chatList[position].countMessages.toString() + context.getString(R.string.mes)
+            topicList[position].countMessage.toString() + context.getString(R.string.mes)
         if (position % 2 == 0) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 holder.layout.setBackgroundColor(context.getColor(R.color.blue))
@@ -43,17 +43,17 @@ class ChatsRecyclerAdapter(
             }
         }
         holder.itemView.setOnClickListener {
-            callbackChat(chatList[position])
+            callbackChat(topicList[position])
         }
     }
 
-    fun setItems(newList: List<ChatItem>) {
-        chatList.clear()
-        chatList.addAll(newList)
+    fun setItems(newList: List<TopicItem>) {
+        topicList.clear()
+        topicList.addAll(newList)
         notifyDataSetChanged()
     }
 
-    fun setCallbackChat(callbackChatTwo: (chat: ChatItem) -> Unit) {
+    fun setCallbackChat(callbackChatTwo: (chat: TopicItem) -> Unit) {
         callbackChat = callbackChatTwo
     }
 

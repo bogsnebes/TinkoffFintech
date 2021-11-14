@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Topic(
     @SerializedName("max_id")
-    val topicId: Int,
+    val maxMessageId: Int,
     @SerializedName("name")
     val name: String
 )

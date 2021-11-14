@@ -34,6 +34,7 @@ class ChannelsFragment : Fragment() {
         val viewPager: ViewPager2 = view.findViewById(R.id.viewPager)
         val tabLayout: TabLayout = view.findViewById(R.id.tabLayout)
         viewPager.adapter = StreamsViewPagerAdapter(parentFragmentManager, lifecycle)
+
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> {

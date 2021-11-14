@@ -1,9 +1,5 @@
 package com.bogsnebes.tinkoffcurs.data
 
-import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.ChatItem
-import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.StreamItem
-import com.bogsnebes.tinkoffcurs.ui.chat.recycler.MessageDto
-import com.bogsnebes.tinkoffcurs.ui.chat.recycler.ReactionDto
 import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 
 object TestData {
@@ -46,60 +42,60 @@ object TestData {
         true
     )
 
-    val testStreams = mutableListOf(
-        StreamItem(
-            "#general",
-            listOf(
-                ChatItem(
-                    "Testing",
-                    1240,
-                    mutableListOf(
-                        MessageDto(
-                            0, 123, "Писатель 1", "kappa", null, listOf(
-                                ReactionDto(123, "\uD83D\uDE00", 1),
-                                ReactionDto(123, "\uD83D\uDE00", 123451)
-                            ), "03.01.2020"
-                        ),
-                        MessageDto(
-                            1, 432,
-                            "Писатель 2",
-                            "чупапа муняня",
-                            null,
-                            listOf(), "03.01.2020"
-                        )
-                    )
-                ),
-                ChatItem(
-                    "Testing",
-                    1240,
-                    mutableListOf()
-                ),
-                ChatItem(
-                    "Testing",
-                    1240,
-                    mutableListOf()
-                )
-            )
-        ),
-        StreamItem(
-            "#directory",
-            listOf(
-                ChatItem(
-                    "Testing",
-                    1240,
-                    mutableListOf()
-                )
-            )
-        ),
-        StreamItem(
-            "#hr",
-            listOf(
-                ChatItem(
-                    "Testing",
-                    1240,
-                    mutableListOf()
-                )
-            )
-        ),
-    )
+//    val testStreams = mutableListOf(
+//        StreamItem(
+//            "#general",
+//            listOf(
+//                ChatItem(
+//                    "Testing",
+//                    1240,
+//                    mutableListOf(
+//                        MessageDto(
+//                            0, 123, "Писатель 1", "kappa", null, listOf(
+//                                ReactionDto(123, "\uD83D\uDE00", 1),
+//                                ReactionDto(123, "\uD83D\uDE00", 123451)
+//                            ), "03.01.2020"
+//                        ),
+//                        MessageDto(
+//                            1, 432,
+//                            "Писатель 2",
+//                            "чупапа муняня",
+//                            null,
+//                            listOf(), "03.01.2020"
+//                        )
+//                    )
+//                ),
+//                ChatItem(
+//                    "Testing",
+//                    1240,
+//                    mutableListOf()
+//                ),
+//                ChatItem(
+//                    "Testing",
+//                    1240,
+//                    mutableListOf()
+//                )
+//            )
+//        ),
+//        StreamItem(
+//            "#directory",
+//            listOf(
+//                ChatItem(
+//                    "Testing",
+//                    1240,
+//                    mutableListOf()
+//                )
+//            )
+//        ),
+//        StreamItem(
+//            "#hr",
+//            listOf(
+//                ChatItem(
+//                    "Testing",
+//                    1240,
+//                    mutableListOf()
+//                )
+//            )
+//        ),
+//    )
 }

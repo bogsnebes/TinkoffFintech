@@ -118,4 +118,14 @@
         app:layout_constraintStart_toStartOf="@+id/view4"
         app:layout_constraintTop_toBottomOf="@+id/view3"
         tools:text="Topic: Testing" />
+
+    <ProgressBar
+        android:id="@+id/chatProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/messageRv"
+        app:layout_constraintEnd_toEndOf="@+id/messageRv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/messageRv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class ListStreams(
     @SerializedName("result")
     val result: String,
-    @SerializedName("subscriptions")
+    @SerializedName("streams")
     val streams: List<Stream>
 )

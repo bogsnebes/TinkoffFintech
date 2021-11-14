@@ -13,7 +13,7 @@ class StreamsRecyclerAdapter(
     private val context: Context,
     private val streamsList: MutableList<StreamItem>,
     private val callbackStream: (stream: StreamItem, holder: ViewHolder) -> Unit,
-    private val callbackChat: (chat: ChatItem) -> Unit
+    private val callbackChat: (chat: TopicItem) -> Unit
 ) : RecyclerView.Adapter<StreamsRecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -32,10 +32,10 @@ class StreamsRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = streamsList[position].category
-        (holder.recyclerView.adapter as ChatsRecyclerAdapter).setItems(streamsList[position].chats)
+        holder.name.text = streamsList[position].name
+        (holder.recyclerView.adapter as ChatsRecyclerAdapter).setItems(streamsList[position].topics)
         (holder.recyclerView.adapter as ChatsRecyclerAdapter).setCallbackChat {
-            it.category = streamsList[position].category
+            it.category = streamsList[position].name
             callbackChat(it)
         }
         holder.itemView.setOnClickListener {
@@ -49,7 +49,7 @@ class StreamsRecyclerAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(context: Context, view: View, callbackChat: (chat: ChatItem) -> Unit) :
+    class ViewHolder(context: Context, view: View, callbackChat: (chat: TopicItem) -> Unit) :
         RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.nameStreamTv)
         val recyclerView: RecyclerView = view.findViewById(R.id.streamRv)

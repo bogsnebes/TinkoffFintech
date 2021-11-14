@@ -10,6 +10,7 @@ import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 import com.bogsnebes.tinkoffcurs.data.TestData
 import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsFragment
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.StreamsFragment
+import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.TopicItem
 import com.bogsnebes.tinkoffcurs.ui.chat.ChatFragment
 import com.bogsnebes.tinkoffcurs.ui.people.PeopleFragment
 import com.bogsnebes.tinkoffcurs.ui.profile.ProfileFragment
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity),
         supportFragmentManager.setFragmentResultListener(
             StreamsFragment.CHAT_OPEN_KEY, this
         ) { _, bundle ->
-            (bundle.getSerializable(StreamsFragment.CHAT_OPEN_KEY) as? ChatItem)?.let {
+            (bundle.getSerializable(StreamsFragment.CHAT_OPEN_KEY) as? TopicItem)?.let {
                 supportFragmentManager.beginTransaction()
                     .addToBackStack(ChannelsFragment.TAG)
                     .add(R.id.container, ChatFragment.newInstance(it))

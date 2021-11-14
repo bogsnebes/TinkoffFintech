@@ -2,6 +2,7 @@ package com.bogsnebes.tinkoffcurs.ui.chat.recycler
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.bogsnebes.tinkoffcurs.ui.custom.message.ReceivedMessageView
 
 class MessageAdapter(
     private val context: Context,
-    private var messageList: List<MessageDto>,
+    private var messageList: MutableList<MessageItem>,
     private val callbackAddReaction: (holder: ViewHolder) -> Unit
 ) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
@@ -85,6 +86,12 @@ class MessageAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val messageView: MessageView = view.findViewById(R.id.messageView)
+    }
+
+    fun setItems(newList: List<MessageItem>) {
+        messageList.clear()
+        messageList.addAll(newList)
+        notifyDataSetChanged()
     }
 
     companion object {

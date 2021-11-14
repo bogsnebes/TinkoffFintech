@@ -12,7 +12,7 @@ class StreamsImpl {
 
     fun loadStreams(searchQuery: String, subscribe: Boolean): Observable<List<Stream>> {
         return getStreams(subscribe).map { streams ->
-            streams.streams.filter { it.category.contains(searchQuery, ignoreCase = true) }
+            streams.streams.filter { it.name.contains(searchQuery, ignoreCase = true) }
         }
     }
 

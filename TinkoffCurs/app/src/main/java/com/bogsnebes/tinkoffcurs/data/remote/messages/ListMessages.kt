@@ -8,7 +8,7 @@ data class ListMessages(
     @SerializedName("found_newest")
     val foundNewest: Boolean,
     @SerializedName("anchor")
-    val anchor: Int,
+    val anchor: Long,
     @SerializedName("messages")
     val messages: List<Message>
 )
