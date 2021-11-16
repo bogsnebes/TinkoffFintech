@@ -5,14 +5,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bogsnebes.tinkoffcurs.R
-import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.ChatItem
-import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
-import com.bogsnebes.tinkoffcurs.data.TestData
 import com.bogsnebes.tinkoffcurs.ui.channels.ChannelsFragment
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.StreamsFragment
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.TopicItem
 import com.bogsnebes.tinkoffcurs.ui.chat.ChatFragment
 import com.bogsnebes.tinkoffcurs.ui.people.PeopleFragment
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 import com.bogsnebes.tinkoffcurs.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity),
     BottomNavigationView.OnNavigationItemSelectedListener {
     private val channelsFragment by lazy { ChannelsFragment.newInstance() }
     private val peopleFragment by lazy { PeopleFragment.newInstance() }
-    private val profileFragment by lazy { ProfileFragment.newInstance(TestData.testProfile) }
+    private val profileFragment by lazy { ProfileFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

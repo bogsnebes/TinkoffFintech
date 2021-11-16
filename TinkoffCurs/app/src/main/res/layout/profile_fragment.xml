@@ -92,19 +92,15 @@
         app:layout_constraintStart_toEndOf="@+id/emailProfileTv"
         tools:text="online" />
 
-    <TextView
-        android:id="@+id/logoutTv"
+
+    <ProgressBar
+        android:id="@+id/profileProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="65dp"
-        android:background="@drawable/bg_log_out"
-        android:paddingHorizontal="56dp"
-        android:paddingVertical="16dp"
-        android:text="@string/log_out"
-        android:textColor="@color/white"
-        android:textSize="@dimen/header2_text"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

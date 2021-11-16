@@ -9,5 +9,5 @@ interface UsersApi {
     fun getMembers(): Observable<ListUsers>
 
     @GET("users/{user_id}")
-    fun getUserById(@Path("user_id") user_id: Int): Observable<User>
+    fun getUserById(@Path("user_id") user_id: Int): Observable<ResultUser>
 }

@@ -46,7 +46,7 @@ class ChatFragment : Fragment() {
         val topic: TextView = view.findViewById(R.id.topicChatTv)
         val backButton: ImageButton = view.findViewById(R.id.backChatIb)
         val recyclerMessage: RecyclerView = view.findViewById(R.id.messageRv)
-        val progressBar: ProgressBar = view.findViewById(R.id.chatProgressBar)
+        val progressBar: ProgressBar = view.findViewById(R.id.profileProgressBar)
 
         val messageAdapter =
             MessageAdapter(

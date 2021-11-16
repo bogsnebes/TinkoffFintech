@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bogsnebes.tinkoffcurs.data.impl.PeopleImpl
-import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.StreamsScreenState
+import com.bogsnebes.tinkoffcurs.ui.people.recycler.ProfileDto
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -37,10 +37,21 @@ class PeopleViewModel : ViewModel() {
             .distinctUntilChanged()
             .debounce(250, TimeUnit.MILLISECONDS, Schedulers.io())
             .switchMap { searchQuery -> peopleImpl.loadProfiles(searchQuery) }
+            .flatMapIterable { it }
+            .map { user ->
+                ProfileDto(
+                    userId = user.userId,
+                    avatar = user.avatarUrl,
+                    name = user.fullName,
+                    email = user.email,
+                    online = true
+                )
+            }
+            .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { _peopleScreenState.postValue(PeopleScreenState.Loading) }
             .subscribeBy(
-                onNext = { _peopleScreenState.value = PeopleScreenState.Result(it) },
+                onSuccess = { _peopleScreenState.value = PeopleScreenState.Result(it) },
                 onError = { _peopleScreenState.value = PeopleScreenState.Error(it) }
             )
             .addTo(compositeDisposable)
@@ -49,10 +60,21 @@ class PeopleViewModel : ViewModel() {
     private fun getAllStreams() {
         peopleImpl.loadProfiles("")
             .subscribeOn(Schedulers.io())
+            .flatMapIterable { it }
+            .map { user ->
+                ProfileDto(
+                    userId = user.userId,
+                    avatar = user.avatarUrl,
+                    name = user.fullName,
+                    email = user.email,
+                    online = true
+                )
+            }
+            .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { _peopleScreenState.value = PeopleScreenState.Loading }
             .subscribeBy(
-                onNext = { _peopleScreenState.value = PeopleScreenState.Result(it) },
+                onSuccess = { _peopleScreenState.value = PeopleScreenState.Result(it) },
                 onError = { _peopleScreenState.value = PeopleScreenState.Error(it) }
             )
             .addTo(compositeDisposable)

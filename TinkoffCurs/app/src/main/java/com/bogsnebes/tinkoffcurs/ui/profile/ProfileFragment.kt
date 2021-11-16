@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -34,7 +33,9 @@ class ProfileFragment : Fragment() {
         val email: TextView = view.findViewById(R.id.emailProfileTv)
         val online: TextView = view.findViewById(R.id.onlineProfileTv)
         val backButton: ImageButton = view.findViewById(R.id.backProfileIb)
-        (arguments?.getSerializable(PROFILE) as? ProfileDto)?.let { profileDto ->
+        val progressBar: ProgressBar = view.findViewById(R.id.profileProgressBar)
+        if ((arguments?.getSerializable(PROFILE) as? ProfileDto) != null) {
+            val profileDto = requireArguments().getSerializable(PROFILE) as ProfileDto
             profileDto.avatar?.let {
                 avatar.load(profileDto.avatar) {
                     transformations(
@@ -42,6 +43,7 @@ class ProfileFragment : Fragment() {
                     )
                 }
             }
+            progressBar.isVisible = false
             backButton.setOnClickListener {
                 parentFragmentManager
                     .popBackStack()
@@ -59,12 +61,33 @@ class ProfileFragment : Fragment() {
                     online.setTextColor(view.context.getColor(R.color.red))
                 }
             }
-            if (profileDto.userId != 0) {
-                view.findViewById<TextView>(R.id.logoutTv).visibility = View.GONE
-            } else {
-                view.findViewById<View>(R.id.viewProfile).visibility = View.GONE
-                view.findViewById<TextView>(R.id.profileTv).visibility = View.GONE
-                view.findViewById<ImageButton>(R.id.backProfileIb).visibility = View.GONE
+        } else {
+            viewModel.getMyProfile()
+            viewModel.profileScreenState.observe(viewLifecycleOwner) {
+                when (it) {
+                    is ProfileScreenState.Result -> {
+                        it.item.avatar?.let {
+                            avatar.load(it) {
+                                transformations(
+                                    RoundedCornersTransformation(CORNERS_RADIUS)
+                                )
+                            }
+                        }
+                        name.text = it.item.name
+                        email.text = it.item.email
+                        view.findViewById<View>(R.id.viewProfile).visibility = View.GONE
+                        view.findViewById<TextView>(R.id.profileTv).visibility = View.GONE
+                        view.findViewById<ImageButton>(R.id.backProfileIb).visibility = View.GONE
+                        progressBar.isVisible = false
+                    }
+                    is ProfileScreenState.Loading -> {
+                        progressBar.isVisible = true
+                    }
+                    else -> {
+                        Toast.makeText(view.context, "Error", Toast.LENGTH_SHORT).show()
+                        progressBar.isVisible = false
+                    }
+                }
             }
         }
     }
