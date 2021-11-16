@@ -21,6 +21,7 @@ import com.bogsnebes.tinkoffcurs.R
 import com.bogsnebes.tinkoffcurs.ui.channels.viewPager.recycler.TopicItem
 import com.bogsnebes.tinkoffcurs.ui.chat.recycler.DialogEmojiAdapter
 import com.bogsnebes.tinkoffcurs.ui.chat.recycler.MessageAdapter
+import okhttp3.internal.toHexString
 
 class ChatFragment : Fragment() {
     private lateinit var viewModel: ChatViewModel
@@ -47,9 +48,37 @@ class ChatFragment : Fragment() {
         val recyclerMessage: RecyclerView = view.findViewById(R.id.messageRv)
         val progressBar: ProgressBar = view.findViewById(R.id.chatProgressBar)
 
-        val messageAdapter = MessageAdapter(view.context, mutableListOf()) {
-            showBottomDialog(view.context, it)
-        }
+        val messageAdapter =
+            MessageAdapter(
+                view.context,
+                mutableListOf(),
+                USER_ID,
+                callbackAddReaction = { holder, messageId ->
+                    showBottomDialog(view.context, holder, messageId)
+                },
+                callbackReaction = { reactionButton, flexBoxLayout, messageId ->
+                    viewModel.clickReaction(
+                        messageId,
+                        reactionButton.emoji.toCharArray()[0].toInt().toString(),
+                        !reactionButton.isSelected,
+                        callbackAddReaction = {
+                            reactionButton.isSelected = !reactionButton.isSelected
+                            reactionButton.setTextColor(Color.WHITE)
+                            reactionButton.countReactions++
+                            if (reactionButton.countReactions <= 0) {
+                                flexBoxLayout.removeView(reactionButton)
+                            }
+                        },
+                        callbackRemoveReaction = {
+                            reactionButton.isSelected = !reactionButton.isSelected
+                            reactionButton.setTextColor(Color.GRAY)
+                            reactionButton.countReactions--
+                            if (reactionButton.countReactions <= 0) {
+                                flexBoxLayout.removeView(reactionButton)
+                            }
+                        }
+                    )
+                })
 
         header.text = topicItem.category
         topic.text = getString(R.string.topic) + ": " + topicItem.name
@@ -67,6 +96,7 @@ class ChatFragment : Fragment() {
         sendMessageButton.load(R.drawable.ic_button_cross)
         sendMessageButton.setOnClickListener {
             if (sendButtonFlag) {
+                viewModel.sendMessage(topicItem.category, topicItem.name, editText.text.toString())
             } else {
                 Toast.makeText(view.context, getString(R.string.test), Toast.LENGTH_SHORT)
                     .show()
@@ -101,6 +131,10 @@ class ChatFragment : Fragment() {
                 is ChatScreenState.Loading -> {
                     progressBar.isVisible = true
                 }
+                is ChatScreenState.SendError -> {
+                    Toast.makeText(view.context, getString(R.string.error), Toast.LENGTH_SHORT)
+                        .show()
+                }
                 else -> {
                     Toast.makeText(view.context, getString(R.string.error), Toast.LENGTH_SHORT)
                         .show()
@@ -114,7 +148,11 @@ class ChatFragment : Fragment() {
         return editText.text.toString().trim { it <= ' ' }.isEmpty()
     }
 
-    private fun showBottomDialog(context: Context, holder: MessageAdapter.ViewHolder) {
+    private fun showBottomDialog(
+        context: Context,
+        holder: MessageAdapter.ViewHolder,
+        messageId: Long
+    ) {
         val bottomSheetDialog = Dialog(context)
         bottomSheetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         bottomSheetDialog.setContentView(R.layout.dialog_emoji)
@@ -133,23 +171,26 @@ class ChatFragment : Fragment() {
                 GridLayoutManager(context, 7)
             recyclerView.adapter =
                 DialogEmojiAdapter(context, listEmoji) {
-                    holder.messageView.addReaction(it, 1)
-                    holder.messageView.setOnReactionClickListener { reactionButton, flexBoxLayout ->
-                        reactionButton.isSelected = !reactionButton.isSelected
-                        if (!reactionButton.isSelected) {
-                            reactionButton.setTextColor(Color.WHITE)
-                            reactionButton.countReactions++
-                        } else {
-                            reactionButton.setTextColor(Color.GRAY)
-                            reactionButton.countReactions--
-                        }
-                        if (reactionButton.countReactions <= 0) {
-                            flexBoxLayout.removeView(reactionButton)
-                        }
-                    }
-                    holder.messageView.setOnAddReactionClickListener {
-                        showBottomDialog(context, holder)
-                    }
+                    viewModel.addReaction(
+                        messageId,
+                        it.toCharArray()[0].toInt().toHexString(),
+                        holder,
+                        reactionListener = { reactionButton, flexBoxLayout ->
+                            reactionButton.isSelected = !reactionButton.isSelected
+                            if (!reactionButton.isSelected) {
+                                reactionButton.setTextColor(Color.WHITE)
+                                reactionButton.countReactions++
+                            } else {
+                                reactionButton.setTextColor(Color.GRAY)
+                                reactionButton.countReactions--
+                            }
+                            if (reactionButton.countReactions <= 0) {
+                                flexBoxLayout.removeView(reactionButton)
+                            }
+                        },
+                        addReactionListener = {
+                            showBottomDialog(context, holder, messageId)
+                        })
                     bottomSheetDialog.dismiss()
                 }
         }
@@ -157,6 +198,7 @@ class ChatFragment : Fragment() {
 
     companion object {
         private const val CHAT: String = "CHAT"
+        const val USER_ID = 454965
 
         fun newInstance(topicItem: TopicItem) = ChatFragment().apply {
             arguments = bundleOf(CHAT to topicItem)

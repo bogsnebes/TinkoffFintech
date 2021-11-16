@@ -47,7 +47,8 @@ abstract class MessageView @JvmOverloads constructor(
 
     fun addReaction(
         emojiText: String,
-        count: Int
+        count: Int,
+        selected: Boolean
     ) {
         val addReactionButton =
             flexBoxLayout.children.firstOrNull { child -> child is ReactionAddViewButton }
@@ -55,7 +56,12 @@ abstract class MessageView @JvmOverloads constructor(
         flexBoxLayout.addView(ReactionButton(context).apply {
             emoji = emojiText
             countReactions = count
-            isSelected = false
+            isSelected = !selected
+            if (selected) {
+                this.setTextColor(Color.WHITE)
+            } else {
+                this.setTextColor(Color.GRAY)
+            }
             val padding10inDp = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics
             ).toInt()
@@ -63,7 +69,6 @@ abstract class MessageView @JvmOverloads constructor(
                 TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics
             ).toInt()
             this.setPadding(padding10inDp, padding5inDp, padding10inDp, padding5inDp)
-            this.setTextColor(Color.WHITE)
             this.setBackgroundResource(R.drawable.bg_emoji_reaction_button)
         })
         if (addReactionButton != null)

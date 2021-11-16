@@ -13,4 +13,10 @@ sealed class ChatScreenState {
             Timber.e(error)
         }
     }
+
+    class SendError(private val error: Throwable? = null) : ChatScreenState() {
+        init {
+            Timber.e(error)
+        }
+    }
 }

@@ -1,14 +1,18 @@
 package com.bogsnebes.tinkoffcurs.data.remote.messages
 
+import com.bogsnebes.tinkoffcurs.data.remote.Result
 import io.reactivex.Observable
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MessagesApi {
+    @FormUrlEncoded
     @POST("messages")
-    fun sendMessage()
+    fun sendMessage(
+        @Field("type") type: String = "stream",
+        @Field("to") streamName: String,
+        @Field("topic") topic: String,
+        @Field("content") content: String,
+    ): Observable<Result>
 
     @GET("messages")
     fun getMessages(
@@ -18,9 +22,16 @@ interface MessagesApi {
         @Query("narrow") narrow: String
     ): Observable<ListMessages>
 
-    @GET("messages/{message_id}/reactions")
-    fun addReaction()
+    @FormUrlEncoded
+    @POST("messages/{message_id}/reactions")
+    fun addReaction(
+        @Path("message_id") messageId: Long,
+        @Field("emoji_code") emojiCode: String,
+    ): Observable<Result>
 
     @DELETE("messages/{message_id}/reactions")
-    fun removeReaction()
+    fun removeReaction(
+        @Path("message_id") messageId: Long,
+        @Field("emoji_code") emojiCode: String,
+    ): Observable<Result>
 }

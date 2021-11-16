@@ -1,20 +1,22 @@
 package com.bogsnebes.tinkoffcurs.ui.chat.recycler
 
 import android.content.Context
-import android.graphics.Color
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.tinkoffcurs.R
+import com.bogsnebes.tinkoffcurs.ui.custom.FlexBoxLayout
 import com.bogsnebes.tinkoffcurs.ui.custom.message.MessageView
 import com.bogsnebes.tinkoffcurs.ui.custom.message.ReceivedMessageView
+import com.bogsnebes.tinkoffcurs.ui.custom.reaction.ReactionButton
 
 class MessageAdapter(
     private val context: Context,
     private var messageList: MutableList<MessageItem>,
-    private val callbackAddReaction: (holder: ViewHolder) -> Unit
+    private val userId: Int,
+    private val callbackAddReaction: (holder: ViewHolder, messageId: Long) -> Unit,
+    private val callbackReaction: (reactionButton: ReactionButton, flexBoxLayout: FlexBoxLayout, messageId: Long) -> Unit
 ) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,16 +35,19 @@ class MessageAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val message = messageList[position]
-        val idUser = 123
         holder.messageView.removeReactions()
         if (message.reactions.isNotEmpty()) {
             for (reaction in message.reactions) {
-                holder.messageView.addReaction(reaction.emoji, reaction.countReactions)
+                holder.messageView.addReaction(
+                    reaction.emoji,
+                    reaction.countReactions,
+                    reaction.selectedUser
+                )
             }
         }
 
         holder.messageView.setMessageContent(message.message)
-        if (message.userId != idUser) {
+        if (message.userId != userId) {
             holder.messageView as ReceivedMessageView
             holder.messageView.setTitleContent(message.sender)
             if (message.profileImage == null)
@@ -52,24 +57,14 @@ class MessageAdapter(
         }
 
         holder.itemView.setOnLongClickListener {
-            callbackAddReaction(holder)
+            callbackAddReaction(holder, messageList[position].id)
             true
         }
         holder.messageView.setOnAddReactionClickListener {
-            callbackAddReaction(holder)
+            callbackAddReaction(holder, messageList[position].id)
         }
         holder.messageView.setOnReactionClickListener { reactionButton, flexBoxLayout ->
-            reactionButton.isSelected = !reactionButton.isSelected
-            if (!reactionButton.isSelected) {
-                reactionButton.setTextColor(Color.WHITE)
-                reactionButton.countReactions++
-            } else {
-                reactionButton.setTextColor(Color.GRAY)
-                reactionButton.countReactions--
-            }
-            if (reactionButton.countReactions <= 0) {
-                flexBoxLayout.removeView(reactionButton)
-            }
+            callbackReaction(reactionButton, flexBoxLayout, messageList[position].id)
         }
     }
 
@@ -78,8 +73,7 @@ class MessageAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val idUser = 123
-        return if (messageList[position].userId == idUser)
+        return if (messageList[position].userId == userId)
             MSG_TYPE_RIGHT
         else MSG_TYPE_LEFT
     }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Message(
     @SerializedName("id")
-    val messageId: Int,
+    val messageId: Long,
     @SerializedName("avatar_url")
     val avatarUrl: String,
     @SerializedName("content")
