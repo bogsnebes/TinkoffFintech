@@ -1,9 +1,8 @@
 package com.bogsnebes.tinkoffcurs.data.impl
 
-import androidx.annotation.WorkerThread
 import com.bogsnebes.tinkoffcurs.App
 import com.bogsnebes.tinkoffcurs.data.remote.users.ListUsers
-import com.bogsnebes.tinkoffcurs.data.remote.users.User
+import com.bogsnebes.tinkoffcurs.data.dto.User
 import com.bogsnebes.tinkoffcurs.data.remote.users.UsersApi
 import com.bogsnebes.tinkoffcurs.ui.chat.ChatFragment
 import io.reactivex.Observable

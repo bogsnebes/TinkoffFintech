@@ -1,8 +1,15 @@
-package com.bogsnebes.tinkoffcurs.data.remote.messages
+package com.bogsnebes.tinkoffcurs.data.dto
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.bogsnebes.tinkoffcurs.data.remote.messages.Reaction
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "messages")
 data class Message(
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     @SerializedName("id")
     val messageId: Long,
     @SerializedName("avatar_url")

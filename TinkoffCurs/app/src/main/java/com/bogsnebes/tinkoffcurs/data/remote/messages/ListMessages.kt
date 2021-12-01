@@ -1,5 +1,6 @@
 package com.bogsnebes.tinkoffcurs.data.remote.messages
 
+import com.bogsnebes.tinkoffcurs.data.dto.Message
 import com.google.gson.annotations.SerializedName
 
 data class ListMessages(

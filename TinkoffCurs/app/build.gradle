@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -46,6 +47,7 @@ ext {
     retrofit = "2.9.0"
     okhttp = "4.9.0"
     timber = "5.0.1"
+    room_version = "2.3.0"
 }
 
 dependencies {
@@ -82,4 +84,8 @@ dependencies {
 
     // timber
     implementation "com.jakewharton.timber:timber:$timber"
+
+    // room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }

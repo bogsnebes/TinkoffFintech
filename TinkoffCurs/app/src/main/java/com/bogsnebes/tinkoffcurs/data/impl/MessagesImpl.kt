@@ -1,14 +1,16 @@
 package com.bogsnebes.tinkoffcurs.data.impl
 
 import com.bogsnebes.tinkoffcurs.App.Companion.retrofit
+import com.bogsnebes.tinkoffcurs.data.AppDatabase
 import com.bogsnebes.tinkoffcurs.data.remote.Result
 import com.bogsnebes.tinkoffcurs.data.remote.messages.ListMessages
-import com.bogsnebes.tinkoffcurs.data.remote.messages.Message
+import com.bogsnebes.tinkoffcurs.data.dto.Message
 import com.bogsnebes.tinkoffcurs.data.remote.messages.MessagesApi
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
 class MessagesImpl {
+    private val db = AppDatabase.instance
     private val messagesApi = retrofit.create(MessagesApi::class.java)
 
     fun loadMessages(
