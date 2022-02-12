@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="horizontal_dimen">20dp</dimen>
+    <dimen name="avatar_item_profile">64dp</dimen>
+    <dimen name="appbar_view_height">56dp</dimen>
 </resources>

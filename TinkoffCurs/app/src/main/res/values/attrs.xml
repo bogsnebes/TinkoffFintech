@@ -3,11 +3,12 @@
     <declare-styleable name="ReactionButton">
         <attr name="erb_emoji" format="string" />
         <attr name="erb_count_reactions" format="integer" />
-        <attr name="erb_text_size" format="dimension"/>
+        <attr name="erb_text_size" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="ReactionFlexBoxLayout">
         <attr name="erfb_space_between_horizontal" format="dimension" />
         <attr name="erfb_space_between_vertical" format="dimension" />
+        <attr name="erfb_reverse" format="boolean" />
     </declare-styleable>
 </resources>

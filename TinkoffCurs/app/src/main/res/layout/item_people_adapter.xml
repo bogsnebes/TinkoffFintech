@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginBottom="16dp"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/avatarPeopleIv"
+            android:layout_width="@dimen/avatar_item_profile"
+            android:layout_height="@dimen/avatar_item_profile"
+            android:contentDescription="@string/avatar"
+            android:src="@drawable/ic_people" />
+
+        <ImageView
+            android:id="@+id/onlinePeopleIv"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_gravity="bottom|end"
+            android:contentDescription="@string/online"
+            tools:srcCompat="@drawable/ic_online" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/namePeopleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/dark_white"
+            android:textSize="@dimen/header2_text"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/emailPeopleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/simple_text"
+            tools:text="TextView" />
+    </LinearLayout>
+
+</LinearLayout>

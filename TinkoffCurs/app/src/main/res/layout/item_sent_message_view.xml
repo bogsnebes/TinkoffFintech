@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.bogsnebes.tinkoffcurs.ui.custom.message.MessageViewText
+        android:id="@+id/messageMvt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_sent_message_text"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_white"
+            android:textSize="16sp"
+            tools:text="212wkldblawblawfhbjakawhflawfawf" />
+
+    </com.bogsnebes.tinkoffcurs.ui.custom.message.MessageViewText>
+
+    <com.bogsnebes.tinkoffcurs.ui.custom.FlexBoxLayout
+        android:id="@+id/rfbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:erfb_space_between_horizontal="10dp"
+        app:erfb_space_between_vertical="8dp" />
+</merge>

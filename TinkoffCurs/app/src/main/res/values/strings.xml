@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">TinkoffCurs</string>
     <string name="add_view_button">+</string>
+    <string name="button_send_message">button send message</string>
+    <string name="emoji">😁 😂 😃 😆 😇 😈 😉 😊 😋 😌 😍 😎 😏 😐 😒 🚤 😓 😔 😖 😘 😚 😜 😝 😞 😠 😡 😢 😣 😤 😥 😨 😩 😪 😫 😭 😰 🌏 🍀 😱 😲 😳 😵 😶 😷 😸 😹 😺 😻 😼 😽 😾 😿 🙀 🙅 🙆 🙇 🙈 🙉 🙊 🙋 🙌 🙍 🙎 ✋ ✋ 🐲 👀 🐝 💢 ☘ ✌</string>
+    <string name="channels">Channels</string>
+    <string name="people">People</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search…</string>
+    <string name="users">Users…</string>
+    <string name="avatar">Avatar</string>
+    <string name="back">back</string>
+    <string name="online">online</string>
+    <string name="offline">offline</string>
+    <string name="log_out">Log out</string>
+    <string name="mes">mes</string>
+    <string name="writer_1">Писатель 1</string>
+    <string name="writer_2">Прикрепите фото</string>
+    <string name="test">Test</string>
+    <string name="topic">Topic</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="all_streams">All streams</string>
+    <string name="error">Error</string>
 </resources>
